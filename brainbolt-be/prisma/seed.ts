@@ -1,0 +1,1016 @@
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
+
+const questions = [
+  // Difficulty 1 - Very Easy
+  {
+    difficulty: 1,
+    prompt: 'What color is the sky on a clear day?',
+    choices: ['Red', 'Blue', 'Green', 'Yellow'],
+    correctIndex: 1,
+    explanation: 'The sky appears blue due to Rayleigh scattering of sunlight in the atmosphere.',
+  },
+  {
+    difficulty: 1,
+    prompt: 'How many days are in a week?',
+    choices: ['5', '6', '7', '8'],
+    correctIndex: 2,
+    explanation: 'A week has 7 days.',
+  },
+  {
+    difficulty: 1,
+    prompt: 'What is 2 + 2?',
+    choices: ['3', '4', '5', '6'],
+    correctIndex: 1,
+    explanation: 'Basic arithmetic: 2 + 2 = 4.',
+  },
+  {
+    difficulty: 1,
+    prompt: 'Which animal is known as the "King of the Jungle"?',
+    choices: ['Tiger', 'Lion', 'Elephant', 'Bear'],
+    correctIndex: 1,
+    explanation: 'Lions are often called the "King of the Jungle".',
+  },
+  {
+    difficulty: 1,
+    prompt: 'What is the opposite of hot?',
+    choices: ['Warm', 'Cold', 'Cool', 'Freezing'],
+    correctIndex: 1,
+    explanation: 'The opposite of hot is cold.',
+  },
+  {
+    difficulty: 1,
+    prompt: 'How many legs does a spider have?',
+    choices: ['6', '8', '10', '12'],
+    correctIndex: 1,
+    explanation: 'Spiders have 8 legs.',
+  },
+  {
+    difficulty: 1,
+    prompt: 'What shape is a basketball?',
+    choices: ['Square', 'Triangle', 'Sphere', 'Rectangle'],
+    correctIndex: 2,
+    explanation: 'A basketball is spherical in shape.',
+  },
+  {
+    difficulty: 1,
+    prompt: 'Which planet do we live on?',
+    choices: ['Mars', 'Venus', 'Earth', 'Jupiter'],
+    correctIndex: 2,
+    explanation: 'We live on Earth.',
+  },
+  {
+    difficulty: 1,
+    prompt: 'What is the first letter of the alphabet?',
+    choices: ['A', 'B', 'C', 'D'],
+    correctIndex: 0,
+    explanation: 'A is the first letter of the alphabet.',
+  },
+  {
+    difficulty: 1,
+    prompt: 'How many fingers does a typical human hand have?',
+    choices: ['4', '5', '6', '7'],
+    correctIndex: 1,
+    explanation: 'A typical human hand has 5 fingers.',
+  },
+
+  // Difficulty 2 - Easy
+  {
+    difficulty: 2,
+    prompt: 'What is the capital of France?',
+    choices: ['London', 'Berlin', 'Paris', 'Madrid'],
+    correctIndex: 2,
+    explanation: 'Paris is the capital of France.',
+  },
+  {
+    difficulty: 2,
+    prompt: 'How many continents are there?',
+    choices: ['5', '6', '7', '8'],
+    correctIndex: 2,
+    explanation: 'There are 7 continents: Africa, Antarctica, Asia, Australia, Europe, North America, and South America.',
+  },
+  {
+    difficulty: 2,
+    prompt: 'What is 5 × 6?',
+    choices: ['25', '30', '35', '40'],
+    correctIndex: 1,
+    explanation: '5 multiplied by 6 equals 30.',
+  },
+  {
+    difficulty: 2,
+    prompt: 'Which ocean is the largest?',
+    choices: ['Atlantic', 'Indian', 'Arctic', 'Pacific'],
+    correctIndex: 3,
+    explanation: 'The Pacific Ocean is the largest ocean on Earth.',
+  },
+  {
+    difficulty: 2,
+    prompt: 'Who wrote "Romeo and Juliet"?',
+    choices: ['Charles Dickens', 'William Shakespeare', 'Mark Twain', 'Jane Austen'],
+    correctIndex: 1,
+    explanation: 'William Shakespeare wrote "Romeo and Juliet".',
+  },
+  {
+    difficulty: 2,
+    prompt: 'What is H2O commonly known as?',
+    choices: ['Oxygen', 'Hydrogen', 'Water', 'Carbon dioxide'],
+    correctIndex: 2,
+    explanation: 'H2O is the chemical formula for water.',
+  },
+  {
+    difficulty: 2,
+    prompt: 'How many hours are in a day?',
+    choices: ['12', '18', '24', '36'],
+    correctIndex: 2,
+    explanation: 'There are 24 hours in a day.',
+  },
+  {
+    difficulty: 2,
+    prompt: 'What is the largest mammal?',
+    choices: ['Elephant', 'Blue Whale', 'Giraffe', 'Polar Bear'],
+    correctIndex: 1,
+    explanation: 'The Blue Whale is the largest mammal.',
+  },
+  {
+    difficulty: 2,
+    prompt: 'Which gas do plants absorb from the atmosphere?',
+    choices: ['Oxygen', 'Nitrogen', 'Carbon dioxide', 'Hydrogen'],
+    correctIndex: 2,
+    explanation: 'Plants absorb carbon dioxide during photosynthesis.',
+  },
+  {
+    difficulty: 2,
+    prompt: 'What is the freezing point of water in Celsius?',
+    choices: ['-10°C', '0°C', '10°C', '32°C'],
+    correctIndex: 1,
+    explanation: 'Water freezes at 0°C (32°F).',
+  },
+
+  // Difficulty 3 - Medium-Easy
+  {
+    difficulty: 3,
+    prompt: 'What is the smallest prime number?',
+    choices: ['0', '1', '2', '3'],
+    correctIndex: 2,
+    explanation: '2 is the smallest prime number.',
+  },
+  {
+    difficulty: 3,
+    prompt: 'Which element has the chemical symbol "Au"?',
+    choices: ['Silver', 'Gold', 'Copper', 'Aluminum'],
+    correctIndex: 1,
+    explanation: 'Au is the chemical symbol for gold (from Latin "aurum").',
+  },
+  {
+    difficulty: 3,
+    prompt: 'In which year did World War II end?',
+    choices: ['1943', '1944', '1945', '1946'],
+    correctIndex: 2,
+    explanation: 'World War II ended in 1945.',
+  },
+  {
+    difficulty: 3,
+    prompt: 'What is the square root of 144?',
+    choices: ['10', '11', '12', '13'],
+    correctIndex: 2,
+    explanation: '12 × 12 = 144, so the square root of 144 is 12.',
+  },
+  {
+    difficulty: 3,
+    prompt: 'Which planet is known as the Red Planet?',
+    choices: ['Venus', 'Mars', 'Jupiter', 'Saturn'],
+    correctIndex: 1,
+    explanation: 'Mars is known as the Red Planet due to iron oxide on its surface.',
+  },
+  {
+    difficulty: 3,
+    prompt: 'What is the longest river in the world?',
+    choices: ['Amazon', 'Nile', 'Yangtze', 'Mississippi'],
+    correctIndex: 1,
+    explanation: 'The Nile River is generally considered the longest river in the world.',
+  },
+  {
+    difficulty: 3,
+    prompt: 'Who painted the Mona Lisa?',
+    choices: ['Michelangelo', 'Leonardo da Vinci', 'Raphael', 'Donatello'],
+    correctIndex: 1,
+    explanation: 'Leonardo da Vinci painted the Mona Lisa.',
+  },
+  {
+    difficulty: 3,
+    prompt: 'What is the speed of light in vacuum (approximately)?',
+    choices: ['300,000 km/s', '150,000 km/s', '450,000 km/s', '600,000 km/s'],
+    correctIndex: 0,
+    explanation: 'Light travels at approximately 300,000 km/s (or 186,000 miles/s) in vacuum.',
+  },
+  {
+    difficulty: 3,
+    prompt: 'Which programming language is known for its use in web development and has a coffee-related name?',
+    choices: ['Python', 'Java', 'JavaScript', 'Ruby'],
+    correctIndex: 2,
+    explanation: 'JavaScript is widely used in web development.',
+  },
+  {
+    difficulty: 3,
+    prompt: 'What is the capital of Australia?',
+    choices: ['Sydney', 'Melbourne', 'Canberra', 'Brisbane'],
+    correctIndex: 2,
+    explanation: 'Canberra is the capital of Australia.',
+  },
+
+  // Difficulty 4 - Medium
+  {
+    difficulty: 4,
+    prompt: 'What is the derivative of x² with respect to x?',
+    choices: ['x', '2x', 'x²', '2'],
+    correctIndex: 1,
+    explanation: 'Using the power rule, d/dx(x²) = 2x.',
+  },
+  {
+    difficulty: 4,
+    prompt: 'Which scientist proposed the theory of general relativity?',
+    choices: ['Isaac Newton', 'Albert Einstein', 'Nikola Tesla', 'Stephen Hawking'],
+    correctIndex: 1,
+    explanation: 'Albert Einstein proposed the theory of general relativity in 1915.',
+  },
+  {
+    difficulty: 4,
+    prompt: 'What is the powerhouse of the cell?',
+    choices: ['Nucleus', 'Ribosome', 'Mitochondria', 'Chloroplast'],
+    correctIndex: 2,
+    explanation: 'Mitochondria are known as the powerhouse of the cell because they produce ATP.',
+  },
+  {
+    difficulty: 4,
+    prompt: 'In Greek mythology, who is the god of the sea?',
+    choices: ['Zeus', 'Hades', 'Poseidon', 'Apollo'],
+    correctIndex: 2,
+    explanation: 'Poseidon is the Greek god of the sea.',
+  },
+  {
+    difficulty: 4,
+    prompt: 'What is the binary representation of the decimal number 15?',
+    choices: ['1010', '1100', '1111', '1110'],
+    correctIndex: 2,
+    explanation: '15 in binary is 1111 (8+4+2+1).',
+  },
+  {
+    difficulty: 4,
+    prompt: 'Which programming paradigm does Haskell primarily follow?',
+    choices: ['Object-oriented', 'Functional', 'Procedural', 'Logic'],
+    correctIndex: 1,
+    explanation: 'Haskell is a purely functional programming language.',
+  },
+  {
+    difficulty: 4,
+    prompt: 'What is the pH of pure water at 25°C?',
+    choices: ['5', '6', '7', '8'],
+    correctIndex: 2,
+    explanation: 'Pure water has a pH of 7, which is neutral.',
+  },
+  {
+    difficulty: 4,
+    prompt: 'Who wrote "1984"?',
+    choices: ['Aldous Huxley', 'George Orwell', 'Ray Bradbury', 'Kurt Vonnegut'],
+    correctIndex: 1,
+    explanation: 'George Orwell wrote the dystopian novel "1984".',
+  },
+  {
+    difficulty: 4,
+    prompt: 'What is the time complexity of binary search?',
+    choices: ['O(n)', 'O(log n)', 'O(n²)', 'O(1)'],
+    correctIndex: 1,
+    explanation: 'Binary search has a time complexity of O(log n).',
+  },
+  {
+    difficulty: 4,
+    prompt: 'Which layer of the OSI model is responsible for routing?',
+    choices: ['Layer 2 (Data Link)', 'Layer 3 (Network)', 'Layer 4 (Transport)', 'Layer 7 (Application)'],
+    correctIndex: 1,
+    explanation: 'The Network layer (Layer 3) is responsible for routing.',
+  },
+
+  // Difficulty 5 - Medium-Hard
+  {
+    difficulty: 5,
+    prompt: 'What is the integral of 1/x with respect to x?',
+    choices: ['x', 'ln|x| + C', '1/x² + C', 'e^x + C'],
+    correctIndex: 1,
+    explanation: 'The integral of 1/x is ln|x| + C.',
+  },
+  {
+    difficulty: 5,
+    prompt: 'In quantum mechanics, what does the Heisenberg Uncertainty Principle state?',
+    choices: [
+      'Energy is quantized',
+      'Position and momentum cannot both be precisely measured',
+      'Light has wave-particle duality',
+      'Electrons orbit in fixed shells',
+    ],
+    correctIndex: 1,
+    explanation: 'The Heisenberg Uncertainty Principle states that position and momentum cannot both be precisely measured simultaneously.',
+  },
+  {
+    difficulty: 5,
+    prompt: 'Which sorting algorithm has the best average-case time complexity?',
+    choices: ['Bubble Sort', 'Merge Sort', 'Insertion Sort', 'Selection Sort'],
+    correctIndex: 1,
+    explanation: 'Merge Sort has an average-case time complexity of O(n log n), which is optimal for comparison-based sorting.',
+  },
+  {
+    difficulty: 5,
+    prompt: 'What is the Turing Test designed to evaluate?',
+    choices: [
+      'Computer processing speed',
+      'Machine intelligence',
+      'Network bandwidth',
+      'Encryption strength',
+    ],
+    correctIndex: 1,
+    explanation: 'The Turing Test evaluates a machine\'s ability to exhibit intelligent behavior indistinguishable from a human.',
+  },
+  {
+    difficulty: 5,
+    prompt: 'In relational databases, what does ACID stand for?',
+    choices: [
+      'Association, Consistency, Integrity, Durability',
+      'Atomicity, Consistency, Isolation, Durability',
+      'Atomicity, Coherence, Isolation, Distribution',
+      'Association, Coherence, Integrity, Distribution',
+    ],
+    correctIndex: 1,
+    explanation: 'ACID stands for Atomicity, Consistency, Isolation, and Durability.',
+  },
+  {
+    difficulty: 5,
+    prompt: 'Who is considered the father of computer science?',
+    choices: ['Alan Turing', 'Charles Babbage', 'John von Neumann', 'Claude Shannon'],
+    correctIndex: 0,
+    explanation: 'Alan Turing is widely considered the father of computer science and artificial intelligence.',
+  },
+  {
+    difficulty: 5,
+    prompt: 'What is the escape velocity from Earth\'s surface (approximately)?',
+    choices: ['5 km/s', '7 km/s', '11 km/s', '15 km/s'],
+    correctIndex: 2,
+    explanation: 'Earth\'s escape velocity is approximately 11.2 km/s (7 miles/s).',
+  },
+  {
+    difficulty: 5,
+    prompt: 'In cryptography, what does RSA stand for?',
+    choices: [
+      'Random Symmetric Algorithm',
+      'Rivest-Shamir-Adleman',
+      'Recursive Security Authentication',
+      'Remote Secure Access',
+    ],
+    correctIndex: 1,
+    explanation: 'RSA is named after its creators: Rivest, Shamir, and Adleman.',
+  },
+  {
+    difficulty: 5,
+    prompt: 'What is the half-life of Carbon-14?',
+    choices: ['570 years', '2,730 years', '5,730 years', '11,460 years'],
+    correctIndex: 2,
+    explanation: 'Carbon-14 has a half-life of approximately 5,730 years.',
+  },
+  {
+    difficulty: 5,
+    prompt: 'In TCP/IP, what is the three-way handshake used for?',
+    choices: [
+      'Data encryption',
+      'Connection establishment',
+      'Error correction',
+      'Packet routing',
+    ],
+    correctIndex: 1,
+    explanation: 'The three-way handshake (SYN, SYN-ACK, ACK) is used to establish a TCP connection.',
+  },
+
+  // Difficulty 6 - Hard
+  {
+    difficulty: 6,
+    prompt: 'What is the Big O notation for the worst-case time complexity of QuickSort?',
+    choices: ['O(n)', 'O(n log n)', 'O(n²)', 'O(2^n)'],
+    correctIndex: 2,
+    explanation: 'QuickSort has a worst-case time complexity of O(n²) when the pivot selection is poor.',
+  },
+  {
+    difficulty: 6,
+    prompt: 'In distributed systems, what does the CAP theorem state?',
+    choices: [
+      'You can have Consistency, Availability, and Partition tolerance simultaneously',
+      'You can only achieve two of: Consistency, Availability, Partition tolerance',
+      'Consistency always trumps Availability',
+      'Partition tolerance is optional',
+    ],
+    correctIndex: 1,
+    explanation: 'The CAP theorem states that a distributed system can only guarantee two of three: Consistency, Availability, and Partition tolerance.',
+  },
+  {
+    difficulty: 6,
+    prompt: 'What is Gödel\'s Incompleteness Theorem about?',
+    choices: [
+      'Quantum mechanics',
+      'Formal mathematical systems',
+      'Computer algorithms',
+      'String theory',
+    ],
+    correctIndex: 1,
+    explanation: 'Gödel\'s Incompleteness Theorems prove that in any consistent formal system, there are true statements that cannot be proven within that system.',
+  },
+  {
+    difficulty: 6,
+    prompt: 'In machine learning, what does the vanishing gradient problem affect?',
+    choices: [
+      'Decision trees',
+      'K-means clustering',
+      'Deep neural networks',
+      'Linear regression',
+    ],
+    correctIndex: 2,
+    explanation: 'The vanishing gradient problem affects deep neural networks during backpropagation, especially with certain activation functions.',
+  },
+  {
+    difficulty: 6,
+    prompt: 'What is the solution to the halting problem?',
+    choices: [
+      'It can be solved with quantum computers',
+      'It is undecidable',
+      'It requires exponential time',
+      'It can be solved with dynamic programming',
+    ],
+    correctIndex: 1,
+    explanation: 'Alan Turing proved that the halting problem is undecidable - no algorithm can determine whether an arbitrary program will halt.',
+  },
+  {
+    difficulty: 6,
+    prompt: 'In quantum computing, what is a qubit?',
+    choices: [
+      'A type of classical bit',
+      'A quantum bit that can be in superposition',
+      'A measuring device',
+      'A quantum gate',
+    ],
+    correctIndex: 1,
+    explanation: 'A qubit is a quantum bit that can exist in a superposition of both 0 and 1 states simultaneously.',
+  },
+  {
+    difficulty: 6,
+    prompt: 'What is the Schwarzschild radius?',
+    choices: [
+      'The radius of a star',
+      'The event horizon radius of a non-rotating black hole',
+      'The orbital radius of Mercury',
+      'The radius of the observable universe',
+    ],
+    correctIndex: 1,
+    explanation: 'The Schwarzschild radius is the radius of the event horizon of a non-rotating black hole.',
+  },
+  {
+    difficulty: 6,
+    prompt: 'In compiler design, what is the purpose of the lexical analysis phase?',
+    choices: [
+      'Code optimization',
+      'Syntax checking',
+      'Converting source code into tokens',
+      'Semantic analysis',
+    ],
+    correctIndex: 2,
+    explanation: 'Lexical analysis (scanning) converts source code into a sequence of tokens.',
+  },
+  {
+    difficulty: 6,
+    prompt: 'What is the Byzantine Generals Problem about?',
+    choices: [
+      'Military strategy',
+      'Achieving consensus in distributed systems with potential traitors',
+      'Graph theory',
+      'Ancient history',
+    ],
+    correctIndex: 1,
+    explanation: 'The Byzantine Generals Problem addresses achieving consensus in distributed systems where some participants may be unreliable or malicious.',
+  },
+  {
+    difficulty: 6,
+    prompt: 'In thermodynamics, what does the second law state about entropy?',
+    choices: [
+      'Entropy always decreases',
+      'Entropy remains constant',
+      'Entropy in an isolated system always increases',
+      'Entropy is reversible',
+    ],
+    correctIndex: 2,
+    explanation: 'The second law of thermodynamics states that entropy in an isolated system always increases over time.',
+  },
+
+  // Difficulty 7 - Very Hard
+  {
+    difficulty: 7,
+    prompt: 'What is the time complexity of the best known algorithm for matrix multiplication?',
+    choices: ['O(n²)', 'O(n^2.37)', 'O(n³)', 'O(n log n)'],
+    correctIndex: 1,
+    explanation: 'The Coppersmith-Winograd algorithm and its improvements achieve approximately O(n^2.37), though O(n³) is more commonly used in practice.',
+  },
+  {
+    difficulty: 7,
+    prompt: 'In lambda calculus, what is the Y combinator used for?',
+    choices: [
+      'Variable binding',
+      'Implementing recursion',
+      'Type inference',
+      'Garbage collection',
+    ],
+    correctIndex: 1,
+    explanation: 'The Y combinator enables recursion in lambda calculus without explicit self-reference.',
+  },
+  {
+    difficulty: 7,
+    prompt: 'What does the Riemann Hypothesis conjecture about?',
+    choices: [
+      'Prime number distribution',
+      'Black hole thermodynamics',
+      'Quantum entanglement',
+      'DNA structure',
+    ],
+    correctIndex: 0,
+    explanation: 'The Riemann Hypothesis conjectures that all non-trivial zeros of the Riemann zeta function have real part equal to 1/2, which has implications for prime number distribution.',
+  },
+  {
+    difficulty: 7,
+    prompt: 'In type theory, what is the Curry-Howard correspondence?',
+    choices: [
+      'A relationship between types and propositions',
+      'A sorting algorithm',
+      'A database normalization technique',
+      'A networking protocol',
+    ],
+    correctIndex: 0,
+    explanation: 'The Curry-Howard correspondence shows a deep relationship between computer programs and mathematical proofs.',
+  },
+  {
+    difficulty: 7,
+    prompt: 'What is the purpose of Merkle trees in blockchain technology?',
+    choices: [
+      'Encrypting transactions',
+      'Efficiently verifying data integrity',
+      'Mining cryptocurrency',
+      'Storing private keys',
+    ],
+    correctIndex: 1,
+    explanation: 'Merkle trees allow efficient and secure verification of large data structures, enabling quick proof that specific data is included in a block.',
+  },
+  {
+    difficulty: 7,
+    prompt: 'In category theory, what is a monad?',
+    choices: [
+      'A type of functor with additional structure',
+      'A database operation',
+      'A sorting algorithm',
+      'A network topology',
+    ],
+    correctIndex: 0,
+    explanation: 'A monad is an endofunctor with two natural transformations (unit and join) that satisfy certain coherence conditions.',
+  },
+  {
+    difficulty: 7,
+    prompt: 'What is the significance of P vs NP in computational complexity?',
+    choices: [
+      'It\'s about parallel vs sequential processing',
+      'It asks if problems with quickly verifiable solutions can be quickly solved',
+      'It\'s about polynomial vs exponential functions',
+      'It\'s about prime numbers',
+    ],
+    correctIndex: 1,
+    explanation: 'The P vs NP problem asks whether every problem whose solution can be quickly verified can also be quickly solved.',
+  },
+  {
+    difficulty: 7,
+    prompt: 'In quantum field theory, what are virtual particles?',
+    choices: [
+      'Computer simulations',
+      'Temporary quantum fluctuations',
+      'Hypothetical dark matter',
+      'Photons in vacuum',
+    ],
+    correctIndex: 1,
+    explanation: 'Virtual particles are temporary quantum fluctuations that exist for brief periods allowed by the Heisenberg uncertainty principle.',
+  },
+  {
+    difficulty: 7,
+    prompt: 'What is the purpose of the ZK-SNARK protocol?',
+    choices: [
+      'Video compression',
+      'Zero-knowledge proofs',
+      'Network routing',
+      'Data encryption',
+    ],
+    correctIndex: 1,
+    explanation: 'ZK-SNARKs (Zero-Knowledge Succinct Non-Interactive Argument of Knowledge) enable one party to prove possession of certain information without revealing it.',
+  },
+  {
+    difficulty: 7,
+    prompt: 'In information theory, what does Shannon\'s source coding theorem state?',
+    choices: [
+      'Data can always be compressed to zero bits',
+      'Data cannot be compressed beyond its entropy',
+      'All data is equally compressible',
+      'Compression is always lossy',
+    ],
+    correctIndex: 1,
+    explanation: 'Shannon\'s source coding theorem establishes that data cannot be losslessly compressed beyond its entropy.',
+  },
+
+  // Difficulty 8 - Expert
+  {
+    difficulty: 8,
+    prompt: 'What is the relationship between topological quantum field theory and knot invariants?',
+    choices: [
+      'They are unrelated',
+      'TQFT provides a framework for computing knot invariants',
+      'Knot invariants prove TQFT theorems',
+      'They are equivalent concepts',
+    ],
+    correctIndex: 1,
+    explanation: 'Topological quantum field theories provide a mathematical framework for computing knot invariants, particularly through the Jones polynomial and related invariants.',
+  },
+  {
+    difficulty: 8,
+    prompt: 'In algebraic geometry, what are schemes?',
+    choices: [
+      'Geometric shapes',
+      'Generalizations of algebraic varieties',
+      'Types of graphs',
+      'Cryptographic protocols',
+    ],
+    correctIndex: 1,
+    explanation: 'Schemes are a generalization of algebraic varieties that form the central objects in modern algebraic geometry.',
+  },
+  {
+    difficulty: 8,
+    prompt: 'What does the AdS/CFT correspondence in string theory relate?',
+    choices: [
+      'Gravity theories in Anti-de Sitter space and conformal field theories',
+      'Atoms and molecules',
+      'Classical and quantum mechanics',
+      'Dark matter and dark energy',
+    ],
+    correctIndex: 0,
+    explanation: 'The AdS/CFT correspondence is a conjectured relationship between gravitational theories in Anti-de Sitter space and conformal field theories on its boundary.',
+  },
+  {
+    difficulty: 8,
+    prompt: 'In proof theory, what is cut-elimination?',
+    choices: [
+      'Removing redundant code',
+      'A fundamental theorem about logical proofs',
+      'A data structure operation',
+      'A graph algorithm',
+    ],
+    correctIndex: 1,
+    explanation: 'Cut-elimination is a fundamental theorem showing that the cut rule is not needed in sequent calculus, with deep implications for proof theory.',
+  },
+  {
+    difficulty: 8,
+    prompt: 'What is the significance of the Coleman-Mandula theorem?',
+    choices: [
+      'It limits possible symmetries in quantum field theory',
+      'It proves string theory',
+      'It describes black holes',
+      'It solves the measurement problem',
+    ],
+    correctIndex: 0,
+    explanation: 'The Coleman-Mandula theorem restricts the possible symmetry groups in quantum field theories, which is why supersymmetry uses anticommuting generators.',
+  },
+  {
+    difficulty: 8,
+    prompt: 'In homological algebra, what is the Ext functor used for?',
+    choices: [
+      'File extensions',
+      'Measuring extension problems between modules',
+      'External functions',
+      'Data extraction',
+    ],
+    correctIndex: 1,
+    explanation: 'The Ext functor measures how modules fail to be projective and classifies extensions of modules.',
+  },
+  {
+    difficulty: 8,
+    prompt: 'What is the Langlands program in mathematics?',
+    choices: [
+      'A computer programming language',
+      'A vast network of conjectures connecting number theory and representation theory',
+      'A space exploration program',
+      'A machine learning framework',
+    ],
+    correctIndex: 1,
+    explanation: 'The Langlands program is a vast web of conjectures that connect number theory, algebraic geometry, and representation theory.',
+  },
+  {
+    difficulty: 8,
+    prompt: 'In quantum chromodynamics, what is asymptotic freedom?',
+    choices: [
+      'Quarks become unbound at low energy',
+      'Strong force decreases at short distances',
+      'Particles move faster than light',
+      'Quantum tunneling increases',
+    ],
+    correctIndex: 1,
+    explanation: 'Asymptotic freedom means the strong nuclear force becomes weaker at very short distances (high energies), allowing quarks to behave almost as free particles.',
+  },
+  {
+    difficulty: 8,
+    prompt: 'What is the purpose of the Yoneda lemma in category theory?',
+    choices: [
+      'Database optimization',
+      'Embedding categories into functor categories',
+      'Parallel computing',
+      'Network security',
+    ],
+    correctIndex: 1,
+    explanation: 'The Yoneda lemma shows how objects can be understood through their relationships with all other objects, providing a fundamental embedding.',
+  },
+  {
+    difficulty: 8,
+    prompt: 'In differential geometry, what are characteristic classes?',
+    choices: [
+      'Types of databases',
+      'Global topological invariants of fiber bundles',
+      'Object-oriented classes',
+      'Network protocols',
+    ],
+    correctIndex: 1,
+    explanation: 'Characteristic classes are cohomology classes associated to vector bundles that provide global topological information.',
+  },
+
+  // Difficulty 9 - Master
+  {
+    difficulty: 9,
+    prompt: 'What does the Atiyah-Singer index theorem relate?',
+    choices: [
+      'Analytical and topological properties of elliptic operators',
+      'Quantum states and classical states',
+      'Prime numbers and zeros',
+      'Energy and mass',
+    ],
+    correctIndex: 0,
+    explanation: 'The Atiyah-Singer index theorem relates the analytical index of an elliptic differential operator to its topological index.',
+  },
+  {
+    difficulty: 9,
+    prompt: 'In homotopy type theory, what is the univalence axiom?',
+    choices: [
+      'A database constraint',
+      'Equivalent types are equal',
+      'A sorting principle',
+      'A network protocol',
+    ],
+    correctIndex: 1,
+    explanation: 'The univalence axiom states that equivalent types can be identified, providing a foundation for mathematics based on homotopy theory.',
+  },
+  {
+    difficulty: 9,
+    prompt: 'What is the significance of the Monster group in mathematics?',
+    choices: [
+      'It\'s a computer virus',
+      'It\'s the largest sporadic simple group',
+      'It\'s a graph algorithm',
+      'It\'s a prime number',
+    ],
+    correctIndex: 1,
+    explanation: 'The Monster group is the largest sporadic simple group and has surprising connections to modular functions (monstrous moonshine).',
+  },
+  {
+    difficulty: 9,
+    prompt: 'In gauge theory, what is the Yang-Mills existence and mass gap problem?',
+    choices: [
+      'A solved problem about quantum field theory',
+      'One of the Millennium Prize Problems about quantum Yang-Mills theory',
+      'A classical physics problem',
+      'A computer science problem',
+    ],
+    correctIndex: 1,
+    explanation: 'The Yang-Mills existence and mass gap problem is an unsolved Millennium Prize Problem asking for a rigorous mathematical foundation of Yang-Mills theory.',
+  },
+  {
+    difficulty: 9,
+    prompt: 'What is the significance of the Hodge conjecture?',
+    choices: [
+      'It\'s about network topology',
+      'It relates algebraic cycles and cohomology on algebraic varieties',
+      'It\'s about prime numbers',
+      'It\'s about quantum mechanics',
+    ],
+    correctIndex: 1,
+    explanation: 'The Hodge conjecture is an unsolved Millennium Prize Problem relating algebraic cycles and cohomology classes on algebraic varieties.',
+  },
+  {
+    difficulty: 9,
+    prompt: 'In spectral theory, what are K-theory spectra used for?',
+    choices: [
+      'Light analysis',
+      'Classifying vector bundles and studying generalized cohomology',
+      'Sound processing',
+      'Image recognition',
+    ],
+    correctIndex: 1,
+    explanation: 'K-theory spectra provide tools for classifying vector bundles and form an important generalized cohomology theory.',
+  },
+  {
+    difficulty: 9,
+    prompt: 'What is the Birch and Swinnerton-Dyer conjecture about?',
+    choices: [
+      'The number of rational points on elliptic curves',
+      'Quantum entanglement',
+      'Black hole entropy',
+      'DNA sequencing',
+    ],
+    correctIndex: 0,
+    explanation: 'The Birch and Swinnerton-Dyer conjecture is a Millennium Prize Problem relating the number of rational points on an elliptic curve to the behavior of its L-function.',
+  },
+  {
+    difficulty: 9,
+    prompt: 'In derived categories, what is a triangulated category?',
+    choices: [
+      'A category with a geometric structure',
+      'A category with a shift functor and distinguished triangles',
+      'A category of triangles',
+      'A three-dimensional database',
+    ],
+    correctIndex: 1,
+    explanation: 'Triangulated categories axiomatize properties of derived categories, with a shift functor and distinguished triangles satisfying certain axioms.',
+  },
+  {
+    difficulty: 9,
+    prompt: 'What is the Witten conjecture (now a theorem) about?',
+    choices: [
+      'Video games',
+      'The relationship between intersection theory and integrable systems',
+      'Social networks',
+      'Cryptocurrency',
+    ],
+    correctIndex: 1,
+    explanation: 'Witten\'s conjecture (proved by Kontsevich) relates intersection theory on moduli spaces of curves to the KdV hierarchy.',
+  },
+  {
+    difficulty: 9,
+    prompt: 'In model theory, what is o-minimality?',
+    choices: [
+      'Code optimization',
+      'A property of structures with well-behaved definable sets',
+      'Data minimization',
+      'Quantum minimization',
+    ],
+    correctIndex: 1,
+    explanation: 'O-minimality is a property of first-order structures where definable sets have simple geometric structure, generalizing real closed fields.',
+  },
+
+  // Difficulty 10 - Grand Master
+  {
+    difficulty: 10,
+    prompt: 'What is the relationship between the geometric Langlands program and quantum field theory?',
+    choices: [
+      'They are unrelated',
+      'Geometric Langlands can be understood via 4D N=4 super Yang-Mills theory',
+      'QFT disproves Langlands',
+      'They contradict each other',
+    ],
+    correctIndex: 1,
+    explanation: 'The geometric Langlands program can be understood through electric-magnetic duality in 4D N=4 super Yang-Mills theory, as proposed by Kapustin and Witten.',
+  },
+  {
+    difficulty: 10,
+    prompt: 'In derived algebraic geometry, what are ∞-categories used for?',
+    choices: [
+      'Database scaling',
+      'Handling coherent homotopy information',
+      'Network bandwidth',
+      'Parallel processing',
+    ],
+    correctIndex: 1,
+    explanation: '∞-categories (infinity-categories) handle coherent homotopy information needed in derived algebraic geometry and higher category theory.',
+  },
+  {
+    difficulty: 10,
+    prompt: 'What is the significance of modular tensor categories in topological quantum computing?',
+    choices: [
+      'They\'re used for classical computing',
+      'They provide a mathematical framework for topological quantum gates',
+      'They\'re irrelevant to quantum computing',
+      'They only apply to databases',
+    ],
+    correctIndex: 1,
+    explanation: 'Modular tensor categories provide the mathematical framework for anyonic systems used in topological quantum computing.',
+  },
+  {
+    difficulty: 10,
+    prompt: 'What does the Geometric Satake correspondence establish?',
+    choices: [
+      'Network equivalence',
+      'An equivalence between representations and perverse sheaves on affine Grassmannians',
+      'Database normalization',
+      'Quantum-classical correspondence',
+    ],
+    correctIndex: 1,
+    explanation: 'The Geometric Satake correspondence establishes an equivalence between representations of a reductive group and certain perverse sheaves on the affine Grassmannian.',
+  },
+  {
+    difficulty: 10,
+    prompt: 'In condensed mathematics, what problem does it address?',
+    choices: [
+      'Data compression',
+      'Foundations of topological algebra without point-set pathologies',
+      'Code condensation',
+      'Network congestion',
+    ],
+    correctIndex: 1,
+    explanation: 'Condensed mathematics, developed by Scholze and others, provides foundations for topological algebra avoiding point-set pathologies.',
+  },
+  {
+    difficulty: 10,
+    prompt: 'What is the purpose of perfectoid spaces in arithmetic geometry?',
+    choices: [
+      'Perfect encryption',
+      'Studying p-adic geometry and establishing tilting equivalences',
+      'Perfect hashing',
+      'Network perfection',
+    ],
+    correctIndex: 1,
+    explanation: 'Perfectoid spaces enable powerful tilting equivalences between characteristic 0 and p, revolutionizing p-adic geometry.',
+  },
+  {
+    difficulty: 10,
+    prompt: 'What does the Farrell-Jones conjecture predict about K-theory?',
+    choices: [
+      'Social network structure',
+      'Computation of K-theory and L-theory from finite subgroups',
+      'Database keys',
+      'Quantum key distribution',
+    ],
+    correctIndex: 1,
+    explanation: 'The Farrell-Jones conjecture predicts that algebraic K-theory and L-theory of group rings can be computed from finite subgroups.',
+  },
+  {
+    difficulty: 10,
+    prompt: 'In the field with one element (F₁), what is the main conceptual difficulty?',
+    choices: [
+      'It doesn\'t exist in the traditional sense',
+      'It has too many elements',
+      'It\'s too simple',
+      'It\'s only theoretical',
+    ],
+    correctIndex: 0,
+    explanation: 'F₁ (the field with one element) doesn\'t exist as a traditional field, but various frameworks attempt to capture its would-be properties.',
+  },
+  {
+    difficulty: 10,
+    prompt: 'What is the relationship between higher Teichmüller theory and cluster algebras?',
+    choices: [
+      'No relationship',
+      'Cluster algebras provide coordinate systems for higher Teichmüller spaces',
+      'They contradict each other',
+      'Only tangentially related',
+    ],
+    correctIndex: 1,
+    explanation: 'Cluster algebras provide natural coordinate systems for higher Teichmüller spaces, revealing deep connections between representation theory and geometry.',
+  },
+  {
+    difficulty: 10,
+    prompt: 'In motivic homotopy theory, what role do motivic spheres play?',
+    choices: [
+      'Database indexing',
+      'They are fundamental objects analogous to spheres in classical homotopy theory',
+      'Network routing',
+      'Data visualization',
+    ],
+    correctIndex: 1,
+    explanation: 'Motivic spheres are fundamental objects in motivic homotopy theory, playing a role analogous to classical spheres in topology.',
+  },
+];
+
+async function main() {
+  console.log('Seeding database...');
+
+  // Clear existing questions
+  await prisma.question.deleteMany({});
+
+  console.log('Creating questions...');
+  for (const question of questions) {
+    await prisma.question.create({
+      data: question,
+    });
+  }
+
+  console.log(`Seeded ${questions.length} questions across 10 difficulty levels`);
+  console.log('Seeding complete!');
+}
+
+main()
+  .catch((e) => {
+    console.error(e);
+    process.exit(1);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });

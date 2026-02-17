@@ -1,0 +1,118 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  username  String   @unique
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  userState          UserState?
+  quizSessions       QuizSession[]
+  answerLogs         AnswerLog[]
+  leaderboardScore   LeaderboardScore?
+  leaderboardStreak  LeaderboardStreak?
+
+  @@map("users")
+}
+
+model Question {
+  id           String   @id @default(cuid())
+  difficulty   Int      @db.Integer
+  prompt       String   @db.Text
+  choices      String[]
+  correctIndex Int      @map("correct_index") @db.Integer
+  explanation  String?  @db.Text
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  answerLogs   AnswerLog[]
+  quizSessions QuizSession[]
+
+  @@index([difficulty])
+  @@map("questions")
+}
+
+model UserState {
+  userId            String   @id @map("user_id")
+  currentDifficulty Float    @default(1.0) @map("current_difficulty")
+  streak            Int      @default(0) @db.Integer
+  maxStreak         Int      @default(0) @map("max_streak") @db.Integer
+  totalScore        Int      @default(0) @map("total_score") @db.Integer
+  momentum          Float    @default(0.0)
+  stateVersion      Int      @default(0) @map("state_version") @db.Integer
+  lastAnsweredAt    DateTime? @map("last_answered_at")
+  updatedAt         DateTime @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_states")
+}
+
+model QuizSession {
+  id                String   @id @default(cuid())
+  userId            String   @map("user_id")
+  currentQuestionId String?  @map("current_question_id")
+  createdAt         DateTime @default(now()) @map("created_at")
+  updatedAt         DateTime @updatedAt @map("updated_at")
+
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  currentQuestion Question? @relation(fields: [currentQuestionId], references: [id])
+  answerLogs      AnswerLog[]
+
+  @@index([userId])
+  @@map("quiz_sessions")
+}
+
+model AnswerLog {
+  id             String   @id @default(cuid())
+  idempotencyKey String   @unique @map("idempotency_key")
+  userId         String   @map("user_id")
+  sessionId      String   @map("session_id")
+  questionId     String   @map("question_id")
+  choiceIndex    Int      @map("choice_index") @db.Integer
+  correct        Boolean
+  scoreDelta     Int      @map("score_delta") @db.Integer
+  streakAtAnswer Int      @map("streak_at_answer") @db.Integer
+  answeredAt     DateTime @default(now()) @map("answered_at")
+
+  user     User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  session  QuizSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  question Question    @relation(fields: [questionId], references: [id])
+
+  @@index([userId, answeredAt])
+  @@index([sessionId])
+  @@map("answer_logs")
+}
+
+model LeaderboardScore {
+  userId     String @id @map("user_id")
+  username   String
+  totalScore Int    @map("total_score") @db.Integer
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([totalScore(sort: Desc)])
+  @@map("leaderboard_scores")
+}
+
+model LeaderboardStreak {
+  userId    String @id @map("user_id")
+  username  String
+  maxStreak Int    @map("max_streak") @db.Integer
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([maxStreak(sort: Desc)])
+  @@map("leaderboard_streaks")
+}
