@@ -7,6 +7,7 @@ import { QuestionCard } from "@/components/quiz/question-card";
 import { ChoiceList } from "@/components/quiz/choice-list";
 import { AnswerFeedback } from "@/components/quiz/answer-feedback";
 import { QuizHeader } from "@/components/quiz/quiz-header";
+import { QuizSkeleton } from "@/components/quiz/quiz-skeleton";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 import type { Question, AnswerResult } from "@/types";
@@ -15,43 +16,38 @@ import type { Question, AnswerResult } from "@/types";
 const DUMMY_QUESTIONS: Question[] = [
   {
     question_id: "dev-q1",
-    question_text: "What is the capital of France?",
+    prompt: "What is the capital of France?",
     choices: ["London", "Berlin", "Paris", "Madrid"],
     difficulty: 1,
     state_version: 1,
-    session_id: "dev-session-1",
   },
   {
     question_id: "dev-q2",
-    question_text: "Which planet is known as the Red Planet?",
+    prompt: "Which planet is known as the Red Planet?",
     choices: ["Venus", "Mars", "Jupiter", "Saturn"],
     difficulty: 2,
     state_version: 2,
-    session_id: "dev-session-1",
   },
   {
     question_id: "dev-q3",
-    question_text: "What is the largest ocean on Earth?",
+    prompt: "What is the largest ocean on Earth?",
     choices: ["Atlantic Ocean", "Indian Ocean", "Arctic Ocean", "Pacific Ocean"],
     difficulty: 2,
     state_version: 3,
-    session_id: "dev-session-1",
   },
   {
     question_id: "dev-q4",
-    question_text: "Who wrote 'Romeo and Juliet'?",
+    prompt: "Who wrote 'Romeo and Juliet'?",
     choices: ["Charles Dickens", "William Shakespeare", "Jane Austen", "Mark Twain"],
     difficulty: 1,
     state_version: 4,
-    session_id: "dev-session-1",
   },
   {
     question_id: "dev-q5",
-    question_text: "What is the speed of light in vacuum?",
+    prompt: "What is the speed of light in vacuum?",
     choices: ["299,792 km/s", "150,000 km/s", "500,000 km/s", "100,000 km/s"],
     difficulty: 3,
     state_version: 5,
-    session_id: "dev-session-1",
   },
 ];
 
@@ -66,6 +62,7 @@ export default function DevQuizPage() {
   const [streak, setStreak] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [autoAdvanceTimer, setAutoAdvanceTimer] = useState<NodeJS.Timeout | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   // Redirect to home in production
   useEffect(() => {
@@ -112,8 +109,8 @@ export default function DevQuizPage() {
     const newScore = score + scoreDelta;
 
     const result: AnswerResult = {
-      is_correct: isCorrect,
-      correct_choice_index: correctAnswerIndex,
+      correct: isCorrect,
+      correct_index: correctAnswerIndex,
       score_delta: scoreDelta,
       new_streak: newStreak,
       new_total_score: newScore,
@@ -135,16 +132,22 @@ export default function DevQuizPage() {
     }
   };
 
-  const handleNextQuestion = () => {
+  const handleNextQuestion = async () => {
     if (autoAdvanceTimer) {
       clearTimeout(autoAdvanceTimer);
       setAutoAdvanceTimer(null);
     }
 
+    setIsTransitioning(true);
+    
+    // Simulate loading delay
+    await new Promise((resolve) => setTimeout(resolve, 300));
+    
     const nextIndex = (currentQuestionIndex + 1) % DUMMY_QUESTIONS.length;
     setCurrentQuestionIndex(nextIndex);
     setSelectedAnswer(null);
     setAnswerResult(null);
+    setIsTransitioning(false);
   };
 
   const handleSelectChoice = (index: number) => {
@@ -162,16 +165,19 @@ export default function DevQuizPage() {
       </div>
 
       <div className="container max-w-3xl px-4 py-8 min-w-0 mx-auto flex-1 flex items-center justify-center">
+        {isTransitioning ? (
+          <QuizSkeleton />
+        ) : (
         <div className="flex flex-col gap-6 w-full">
           <QuestionCard
-            questionText={currentQuestion.question_text}
+            questionText={currentQuestion.prompt}
             difficulty={currentQuestion.difficulty}
           />
 
           <ChoiceList
             choices={currentQuestion.choices}
             selectedAnswer={selectedAnswer}
-            correctAnswer={answerResult ? answerResult.correct_choice_index : null}
+            correctAnswer={answerResult ? answerResult.correct_index : null}
             isDisabled={!!answerResult || isSubmitting}
             onSelectChoice={handleSelectChoice}
           />
@@ -196,9 +202,9 @@ export default function DevQuizPage() {
 
           {answerResult && (
             <AnswerFeedback
-              isCorrect={answerResult.is_correct}
+              isCorrect={answerResult.correct}
               scoreDelta={answerResult.score_delta}
-              explanation={answerResult.explanation}
+              explanation={answerResult.explanation || undefined}
               onNext={handleNextQuestion}
             />
           )}
@@ -247,6 +253,7 @@ export default function DevQuizPage() {
             </p>
           </div>
         </div>
+        )}
       </div>
     </div>
   );

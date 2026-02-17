@@ -10,8 +10,23 @@ const authPaths = ["/auth/login", "/auth/register"];
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   
-  // Get token from cookie (if we implement cookie-based auth) or check localStorage on client side
-  // For now, we'll let the client handle redirects since we're using Zustand with localStorage
+  // Get token from cookie
+  const token = request.cookies.get("auth_token")?.value;
+  
+  // Check if user is authenticated
+  const isAuthenticated = !!token;
+  
+  // Redirect authenticated users away from auth pages
+  if (isAuthenticated && authPaths.some(path => pathname.startsWith(path))) {
+    return NextResponse.redirect(new URL("/dashboard", request.url));
+  }
+  
+  // Redirect unauthenticated users away from protected pages
+  if (!isAuthenticated && protectedPaths.some(path => pathname.startsWith(path))) {
+    const loginUrl = new URL("/auth/login", request.url);
+    loginUrl.searchParams.set("redirect", pathname);
+    return NextResponse.redirect(loginUrl);
+  }
   
   return NextResponse.next();
 }

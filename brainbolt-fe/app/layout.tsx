@@ -9,7 +9,8 @@ import { Toaster } from "sonner";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useAuthStore } from "@/store/auth-store";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
@@ -21,6 +22,23 @@ const spaceMono = Space_Mono({
   subsets: ["latin"],
   weight: ["400", "700"],
 });
+
+function AuthInitializer({ children }: { children: React.ReactNode }) {
+  const initializeAuth = useAuthStore((state) => state.initializeAuth);
+  const isInitialized = useAuthStore((state) => state.isInitialized);
+
+  useEffect(() => {
+    // Initialize auth from cookies on app load
+    initializeAuth();
+  }, [initializeAuth]);
+
+  // Prevent flash of unauthenticated content
+  if (!isInitialized) {
+    return null;
+  }
+
+  return <>{children}</>;
+}
 
 export default function RootLayout({
   children,
@@ -52,12 +70,14 @@ export default function RootLayout({
         >
           <QueryClientProvider client={queryClient}>
             <TooltipProvider>
-              <div className="flex min-h-screen flex-col">
-                <Header />
-                <main className="flex-1">{children}</main>
-                <Footer />
-              </div>
-              <Toaster position="top-center" richColors />
+              <AuthInitializer>
+                <div className="flex min-h-screen flex-col">
+                  <Header />
+                  <main className="flex-1">{children}</main>
+                  <Footer />
+                </div>
+                <Toaster position="top-center" richColors />
+              </AuthInitializer>
             </TooltipProvider>
           </QueryClientProvider>
         </ThemeProvider>

@@ -32,6 +32,7 @@ export default function QuizPage() {
   } = useQuizStore();
 
   const [autoAdvanceTimer, setAutoAdvanceTimer] = useState<NodeJS.Timeout | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -79,7 +80,10 @@ export default function QuizPage() {
     }
 
     if (!token) return;
+    
+    setIsTransitioning(true);
     await fetchNextQuestion(token);
+    setIsTransitioning(false);
   };
 
   const handleSelectChoice = (index: number) => {
@@ -96,7 +100,7 @@ export default function QuizPage() {
       <QuizHeader score={score} streak={streak} difficulty={difficulty} />
 
       <div className="container max-w-3xl px-4 py-8 min-w-0 mx-auto flex-1 flex items-center justify-center">
-        {isLoading && !currentQuestion ? (
+        {(isLoading && !currentQuestion) || isTransitioning ? (
           <QuizSkeleton />
         ) : currentQuestion ? (
           <div className="flex flex-col gap-6 w-full">
@@ -137,7 +141,7 @@ export default function QuizPage() {
               <AnswerFeedback
                 isCorrect={answerResult.correct}
                 scoreDelta={answerResult.score_delta}
-                explanation={answerResult.explanation}
+                explanation={answerResult.explanation || undefined}
                 onNext={handleNextQuestion}
               />
             )}
