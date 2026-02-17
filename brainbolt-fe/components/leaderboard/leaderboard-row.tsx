@@ -35,7 +35,7 @@ export const LeaderboardRow = React.memo(function LeaderboardRow({
   type,
   isCurrentUser = false,
 }: LeaderboardRowProps) {
-  const value = type === "score" ? entry.score : entry.streak;
+  const value = type === "score" ? entry.total_score : entry.max_streak;
 
   return (
     <div

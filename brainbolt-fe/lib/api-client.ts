@@ -143,7 +143,7 @@ export const leaderboardApi = {
         rank: number;
         user_id: string;
         username: string;
-        score: number;
+        total_score: number;
       }>
     >(`/v1/leaderboard/score?limit=${limit}`),
 
@@ -153,7 +153,7 @@ export const leaderboardApi = {
         rank: number;
         user_id: string;
         username: string;
-        streak: number;
+        max_streak: number;
       }>
     >(`/v1/leaderboard/streak?limit=${limit}`),
 };

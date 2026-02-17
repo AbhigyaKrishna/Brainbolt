@@ -37,8 +37,8 @@ export interface LeaderboardEntry {
   rank: number;
   user_id: string;
   username: string;
-  score?: number;
-  streak?: number;
+  total_score?: number;
+  max_streak?: number;
 }
 
 export type LeaderboardType = "score" | "streak";
