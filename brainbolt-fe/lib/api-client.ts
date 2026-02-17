@@ -69,7 +69,7 @@ export const authApi = {
       }
     ),
 
-  login: (data: { username: string; password: string }) =>
+  login: (data: { email: string; password: string }) =>
     fetchApi<{ access_token: string; token_type: string }>("/v1/auth/login", {
       method: "POST",
       body: JSON.stringify(data),
