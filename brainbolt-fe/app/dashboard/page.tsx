@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Trophy, Target, Flame, TrendingUp, Award } from "lucide-react";
 import { StatsCard } from "@/components/dashboard/stats-card";
-import { DifficultyHistogram } from "@/components/dashboard/difficulty-histogram";
 import { AccuracyChart } from "@/components/dashboard/accuracy-chart";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useAuthStore } from "@/store/auth-store";
@@ -54,10 +53,7 @@ export default function DashboardPage() {
             <Skeleton key={i} className="h-32" />
           ))}
         </div>
-        <div className="grid gap-6 md:grid-cols-2 mb-8">
-          <Skeleton className="h-96" />
-          <Skeleton className="h-96" />
-        </div>
+        <Skeleton className="h-96 mb-8" />
       </div>
     );
   }
@@ -110,8 +106,7 @@ export default function DashboardPage() {
       </div>
 
       {/* Charts Grid */}
-      <div className="grid gap-6 md:grid-cols-2 mb-8">
-        <DifficultyHistogram distribution={metrics.difficulty_distribution} />
+      <div className="mb-8">
         <AccuracyChart
           correctAnswers={metrics.correct_answers}
           totalQuestions={metrics.total_questions_answered}

@@ -30,7 +30,6 @@ export interface QuizMetrics {
   correct_answers: number;
   current_difficulty: number;
   accuracy: number;
-  difficulty_distribution: Record<number, number>;
 }
 
 export interface LeaderboardEntry {
