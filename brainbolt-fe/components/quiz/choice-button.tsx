@@ -1,0 +1,64 @@
+"use client";
+
+import React from "react";
+import { Check, X } from "lucide-react";
+import { cn } from "@/lib/utils";
+
+interface ChoiceButtonProps {
+  choice: string;
+  index: number;
+  isSelected: boolean;
+  isCorrect: boolean | null;
+  isIncorrect: boolean;
+  isDisabled: boolean;
+  onClick: () => void;
+}
+
+export const ChoiceButton = React.memo(function ChoiceButton({
+  choice,
+  index,
+  isSelected,
+  isCorrect,
+  isIncorrect,
+  isDisabled,
+  onClick,
+}: ChoiceButtonProps) {
+  const labels = ["A", "B", "C", "D"];
+
+  return (
+    <button
+      onClick={onClick}
+      disabled={isDisabled}
+      className={cn(
+        "w-full p-4 rounded-lg border-2 text-left transition-all duration-200",
+        "hover:border-primary hover:bg-accent/50",
+        "focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
+        "disabled:cursor-not-allowed",
+        isSelected && !isCorrect && !isIncorrect && "border-primary bg-accent",
+        isCorrect && "border-success bg-success/10 text-success-foreground",
+        isIncorrect && "border-destructive bg-destructive/10 text-destructive-foreground"
+      )}
+    >
+      <div className="flex items-center gap-3">
+        <div
+          className={cn(
+            "flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 font-semibold",
+            isSelected && !isCorrect && !isIncorrect && "border-primary bg-primary text-primary-foreground",
+            isCorrect && "border-success bg-success text-success-foreground",
+            isIncorrect && "border-destructive bg-destructive text-destructive-foreground",
+            !isSelected && !isCorrect && !isIncorrect && "border-border"
+          )}
+        >
+          {isCorrect ? (
+            <Check className="h-4 w-4" />
+          ) : isIncorrect ? (
+            <X className="h-4 w-4" />
+          ) : (
+            labels[index]
+          )}
+        </div>
+        <span className="text-base sm:text-lg flex-1">{choice}</span>
+      </div>
+    </button>
+  );
+});

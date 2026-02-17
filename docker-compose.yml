@@ -1,0 +1,57 @@
+services:
+  frontend:
+    build:
+      context: ./brainbolt-fe
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - API_URL=http://backend:8000
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+    depends_on:
+      - backend
+    networks:
+      - brainbolt-network
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://brainbolt:brainbolt@db:5432/brainbolt
+      - REDIS_URL=redis://redis:6379
+      - SECRET_KEY=${SECRET_KEY:-supersecretkey}
+    depends_on:
+      - db
+      - redis
+    networks:
+      - brainbolt-network
+    restart: unless-stopped
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      - POSTGRES_USER=brainbolt
+      - POSTGRES_PASSWORD=brainbolt
+      - POSTGRES_DB=brainbolt
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - brainbolt-network
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    networks:
+      - brainbolt-network
+    restart: unless-stopped
+
+networks:
+  brainbolt-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
