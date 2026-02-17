@@ -47,7 +47,7 @@ export default function DashboardPage() {
 
   if (isLoading) {
     return (
-      <div className="container max-w-6xl px-4 py-8">
+      <div className="container max-w-6xl px-4 py-8 min-w-0">
         <Skeleton className="h-10 w-64 mb-8" />
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-8">
           {[1, 2, 3, 4].map((i) => (
@@ -64,7 +64,7 @@ export default function DashboardPage() {
 
   if (!metrics) {
     return (
-      <div className="container max-w-6xl px-4 py-8">
+      <div className="container max-w-6xl px-4 py-8 min-w-0">
         <p className="text-center text-muted-foreground">
           No metrics available. Start playing to see your stats!
         </p>
@@ -73,7 +73,7 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="container max-w-6xl px-4 py-8">
+    <div className="container max-w-6xl px-4 py-8 min-w-0">
       <div className="mb-8">
         <h1 className="text-4xl font-bold mb-2">Dashboard</h1>
         <p className="text-muted-foreground">

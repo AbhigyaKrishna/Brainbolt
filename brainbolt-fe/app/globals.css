@@ -1,5 +1,42 @@
 @import "tailwindcss";
 
+@theme {
+  /* Container configuration */
+  --container-center: true;
+  --container-padding: 1rem;
+}
+
+/* Global viewport and overflow control */
+html {
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
+  box-sizing: border-box;
+}
+
+body {
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
+  position: relative;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Prevent overflow from any element */
+#__next,
+[data-nextjs-scroll-focus-boundary] {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
 /* Design System Tokens */
 :root {
   /* Colors - Light Mode */
@@ -162,9 +199,17 @@
   border-color: hsl(var(--border));
 }
 
+html {
+  overflow-x: hidden;
+  width: 100%;
+}
+
 body {
   background: hsl(var(--background));
   color: hsl(var(--foreground));
   font-family: var(--font-sans);
+  overflow-x: hidden;
+  width: 100%;
+  position: relative;
 }
 

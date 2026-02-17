@@ -32,8 +32,8 @@ export function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 items-center justify-between px-4 sm:px-6">
+    <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 min-w-0">
+      <div className="container flex h-16 items-center justify-between px-4 sm:px-6 max-w-[1920px]">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 font-semibold">
           <Brain className="h-6 w-6 text-primary" />
@@ -121,8 +121,8 @@ export function Header() {
 
       {/* Mobile Navigation */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t">
-          <nav className="container flex flex-col gap-4 py-4 px-4">
+        <div className="md:hidden border-t w-full min-w-0">
+          <nav className="container flex flex-col gap-4 py-4 px-4 max-w-[1920px]">
             {user ? (
               <>
                 {navLinks.map((link) => (

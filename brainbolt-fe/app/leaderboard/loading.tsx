@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
 export default function LeaderboardLoading() {
   return (
-    <div className="container max-w-4xl px-4 py-8">
+    <div className="container max-w-4xl px-4 py-8 min-w-0">
       <div className="mb-8">
         <Skeleton className="h-10 w-64 mb-2" />
         <Skeleton className="h-5 w-96" />

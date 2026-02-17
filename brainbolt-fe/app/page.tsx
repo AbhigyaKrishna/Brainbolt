@@ -18,10 +18,10 @@ export default async function Home() {
   const topPlayers = await getTopPlayers();
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col w-full min-w-0">
       {/* Hero Section */}
-      <section className="bg-gradient-to-b from-primary/10 via-background to-background">
-        <div className="container px-4 py-24 sm:py-32">
+      <section className="w-full bg-gradient-to-b from-primary/10 via-background to-background min-w-0">
+        <div className="container px-4 py-24 sm:py-32 max-w-7xl">
           <div className="flex flex-col items-center text-center gap-8">
             <div className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm">
               <Sparkles className="h-4 w-4 text-primary" />
@@ -54,7 +54,8 @@ export default async function Home() {
       </section>
 
       {/* Features Section */}
-      <section className="container px-4 py-16 sm:py-24">
+      <section className="w-full py-16 sm:py-24 min-w-0">
+        <div className="container px-4 max-w-7xl">
         <div className="text-center mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold mb-4">
             Why Choose BrainBolt?
@@ -98,12 +99,13 @@ export default async function Home() {
             </CardHeader>
           </Card>
         </div>
+        </div>
       </section>
 
       {/* Leaderboard Preview Section */}
       {topPlayers.length > 0 && (
-        <section className="bg-muted/50 py-16 sm:py-24">
-          <div className="container px-4">
+        <section className="w-full bg-muted/50 py-16 sm:py-24 min-w-0">
+          <div className="container px-4 max-w-4xl">
             <div className="max-w-3xl mx-auto">
               <div className="text-center mb-8">
                 <h2 className="text-3xl sm:text-4xl font-bold mb-4">
@@ -140,7 +142,8 @@ export default async function Home() {
       )}
 
       {/* CTA Section */}
-      <section className="container px-4 py-16 sm:py-24">
+      <section className="w-full py-16 sm:py-24 min-w-0">
+        <div className="container px-4 max-w-7xl">
         <div className="bg-primary text-primary-foreground rounded-2xl p-8 sm:p-12 lg:p-16 text-center">
           <h2 className="text-3xl sm:text-4xl font-bold mb-4">
             Ready to Test Your Knowledge?
@@ -161,6 +164,7 @@ export default async function Home() {
               <Link href="/auth/login">Sign In</Link>
             </Button>
           </div>
+        </div>
         </div>
       </section>
     </div>

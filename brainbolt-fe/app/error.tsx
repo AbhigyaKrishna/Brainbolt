@@ -17,7 +17,7 @@ export default function Error({
   }, [error]);
 
   return (
-    <div className="container flex items-center justify-center min-h-[calc(100vh-8rem)] px-4">
+    <div className="container flex items-center justify-center min-h-[calc(100vh-8rem)] px-4 min-w-0">
       <Card className="max-w-md w-full">
         <CardHeader>
           <div className="flex items-center gap-2">

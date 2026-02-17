@@ -14,8 +14,8 @@ interface QuizHeaderProps {
 
 export function QuizHeader({ score, streak, difficulty }: QuizHeaderProps) {
   return (
-    <div className="w-full bg-card border-b">
-      <div className="container px-4 py-4">
+    <div className="w-full bg-card border-b min-w-0">
+      <div className="container px-4 py-4 max-w-[1920px]">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <Trophy className="h-6 w-6 text-primary" />

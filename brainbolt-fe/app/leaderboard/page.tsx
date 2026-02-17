@@ -26,7 +26,7 @@ export default async function LeaderboardPage() {
   const currentUserId = undefined;
 
   return (
-    <div className="container max-w-4xl px-4 py-8">
+    <div className="container max-w-4xl px-4 py-8 min-w-0">
       <div className="mb-8">
         <h1 className="text-4xl font-bold mb-2">Leaderboard</h1>
         <p className="text-muted-foreground">

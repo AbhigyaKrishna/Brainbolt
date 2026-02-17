@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 
 export default function NotFound() {
   return (
-    <div className="container flex flex-col items-center justify-center min-h-[calc(100vh-8rem)] px-4 text-center">
+    <div className="container flex flex-col items-center justify-center min-h-[calc(100vh-8rem)] px-4 text-center min-w-0">
       <div className="space-y-4 max-w-md">
         <div className="text-8xl font-bold text-primary">404</div>
         <h1 className="text-3xl font-bold">Page Not Found</h1>
