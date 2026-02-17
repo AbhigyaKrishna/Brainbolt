@@ -53,4 +53,4 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=40s \
   CMD node -e "require('http').get('http://localhost:8000/health', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"
 
 # Start command - run migrations, generate client, seed, then start
-CMD ["sh", "-c", "npx prisma migrate deploy && node dist/prisma/seed.js && node dist/src/index.js"]
+CMD ["sh", "-c", "npx prisma migrate deploy && node dist/prisma/seed.js || true && node dist/src/index.js"]

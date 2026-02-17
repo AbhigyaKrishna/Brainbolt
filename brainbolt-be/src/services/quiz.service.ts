@@ -147,14 +147,37 @@ export class QuizService {
         },
       });
 
-      await tx.leaderboardScore.update({
-        where: { userId },
-        data: { totalScore: newTotalScore },
+      // Get user info for leaderboard
+      const user = await tx.user.findUnique({
+        where: { id: userId },
+        select: { username: true },
       });
 
-      await tx.leaderboardStreak.update({
+      // Use upsert to handle both new and existing leaderboard entries
+      await tx.leaderboardScore.upsert({
         where: { userId },
-        data: { maxStreak: newMaxStreak },
+        create: {
+          userId,
+          username: user?.username || 'Unknown',
+          totalScore: newTotalScore,
+        },
+        update: {
+          totalScore: newTotalScore,
+          username: user?.username || 'Unknown',
+        },
+      });
+
+      await tx.leaderboardStreak.upsert({
+        where: { userId },
+        create: {
+          userId,
+          username: user?.username || 'Unknown',
+          maxStreak: newMaxStreak,
+        },
+        update: {
+          maxStreak: newMaxStreak,
+          username: user?.username || 'Unknown',
+        },
       });
 
       // Clear the current question after answering to prevent duplicate submissions
@@ -174,7 +197,17 @@ export class QuizService {
       };
     });
 
-    await this.updateRedisLeaderboards(userId, result.new_total_score, result.new_streak);
+    // Get user state for max streak
+    const updatedState = await prisma.userState.findUnique({
+      where: { userId },
+      select: { maxStreak: true },
+    });
+
+    await this.updateRedisLeaderboards(
+      userId,
+      result.new_total_score,
+      updatedState?.maxStreak || 0
+    );
 
     await cacheService.invalidateUserState(userId);
 
