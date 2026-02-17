@@ -5,7 +5,6 @@ const QUESTION_POOL_TTL = 3600; // 60 minutes
 const IDEMPOTENCY_TTL = 300; // 5 minutes
 
 export class CacheService {
-  // User state caching
   async getUserState(userId: string): Promise<any | null> {
     try {
       const cached = await redis.get(`user:state:${userId}`);
@@ -32,7 +31,6 @@ export class CacheService {
     }
   }
 
-  // Question pool caching
   async getQuestionPool(difficulty: number): Promise<string[] | null> {
     try {
       const cached = await redis.get(`questions:difficulty:${difficulty}`);
@@ -55,7 +53,6 @@ export class CacheService {
     }
   }
 
-  // Idempotency
   async checkIdempotency(key: string): Promise<any | null> {
     try {
       const cached = await redis.get(`idempotency:${key}`);

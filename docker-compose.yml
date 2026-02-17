@@ -21,9 +21,9 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - DATABASE_URL=postgresql://brainbolt:brainbolt@db:5432/brainbolt
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/postgres?sslmode=disable
       - REDIS_URL=redis://redis:6379
-      - SECRET_KEY=${SECRET_KEY:-supersecretkey}
+      - SECRET_KEY=${SECRET_KEY:-supersecretkey0987654321@!masterchief}
     depends_on:
       - db
       - redis
@@ -34,9 +34,9 @@ services:
   db:
     image: postgres:16-alpine
     environment:
-      - POSTGRES_USER=brainbolt
-      - POSTGRES_PASSWORD=brainbolt
-      - POSTGRES_DB=brainbolt
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
@@ -44,7 +44,7 @@ services:
     restart: unless-stopped
 
   redis:
-    image: redis:7-alpine
+    image: redis:latest
     networks:
       - brainbolt-network
     restart: unless-stopped

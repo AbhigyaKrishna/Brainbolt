@@ -6,7 +6,6 @@ import { AuthResponse, LoginRequest, RegisterRequest, UserResponse } from '../sc
 
 export class AuthService {
   async register(data: RegisterRequest): Promise<AuthResponse> {
-    // Check if user exists
     const existingUser = await prisma.user.findFirst({
       where: {
         OR: [{ email: data.email }, { username: data.username }],
@@ -20,10 +19,8 @@ export class AuthService {
       throw new AppError(400, 'Username already taken');
     }
 
-    // Hash password
     const hashedPassword = await bcrypt.hash(data.password, 10);
 
-    // Create user with related records in a transaction
     const user = await prisma.$transaction(async (tx: any) => {
       const newUser = await tx.user.create({
         data: {
@@ -33,14 +30,12 @@ export class AuthService {
         },
       });
 
-      // Create user state
       await tx.userState.create({
         data: {
           userId: newUser.id,
         },
       });
 
-      // Create leaderboard entries
       await tx.leaderboardScore.create({
         data: {
           userId: newUser.id,
@@ -60,7 +55,6 @@ export class AuthService {
       return newUser;
     });
 
-    // Generate token
     const token = signToken(user.id);
 
     return {
@@ -71,7 +65,6 @@ export class AuthService {
   }
 
   async login(data: LoginRequest): Promise<AuthResponse> {
-    // Find user
     const user = await prisma.user.findUnique({
       where: { email: data.email },
     });
@@ -80,14 +73,12 @@ export class AuthService {
       throw new AppError(401, 'Invalid email or password');
     }
 
-    // Verify password
     const isValidPassword = await bcrypt.compare(data.password, user.password);
 
     if (!isValidPassword) {
       throw new AppError(401, 'Invalid email or password');
     }
 
-    // Generate token
     const token = signToken(user.id);
 
     return {

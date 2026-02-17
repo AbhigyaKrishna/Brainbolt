@@ -7,10 +7,8 @@ import { SubmitAnswerRequestSchema } from '../schemas/quiz.schema';
 
 const router = Router();
 
-// All quiz routes require authentication
 router.use(authenticate);
 
-// Rate limit: 5 requests per second for quiz operations
 const quizRateLimit = rateLimit({ windowMs: 1000, maxRequests: 5 });
 
 router.get('/questions/next', quizRateLimit, quizController.getNextQuestion);

@@ -14,7 +14,6 @@ export function rateLimit(config: RateLimitConfig) {
       const now = Date.now();
       const windowStart = now - config.windowMs;
 
-      // Remove old entries and add current request
       await redis
         .multi()
         .zremrangebyscore(key, 0, windowStart)
@@ -26,15 +25,15 @@ export function rateLimit(config: RateLimitConfig) {
       const count = await redis.zcard(key);
 
       if (count > config.maxRequests) {
-        return res.status(429).json({
+        res.status(429).json({
           detail: 'Too many requests, please try again later',
         });
+        return;
       }
 
       next();
     } catch (error) {
       console.error('Rate limit error:', error);
-      // On error, allow the request to proceed
       next();
     }
   };

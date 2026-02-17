@@ -3,7 +3,6 @@ import { extendZodWithOpenApi } from '@asteasolutions/zod-to-openapi';
 
 extendZodWithOpenApi(z);
 
-// Leaderboard query schema
 export const LeaderboardQuerySchema = z.object({
   query: z.object({
     limit: z
@@ -17,7 +16,6 @@ export const LeaderboardQuerySchema = z.object({
 
 export type LeaderboardQuery = z.infer<typeof LeaderboardQuerySchema>['query'];
 
-// Score entry schema
 export const ScoreEntrySchema = z
   .object({
     rank: z.number().int().openapi({ example: 1 }),
@@ -29,7 +27,6 @@ export const ScoreEntrySchema = z
 
 export type ScoreEntry = z.infer<typeof ScoreEntrySchema>;
 
-// Streak entry schema
 export const StreakEntrySchema = z
   .object({
     rank: z.number().int().openapi({ example: 1 }),
@@ -41,7 +38,6 @@ export const StreakEntrySchema = z
 
 export type StreakEntry = z.infer<typeof StreakEntrySchema>;
 
-// Leaderboard response schemas
 export const ScoreLeaderboardResponseSchema = z.array(ScoreEntrySchema).openapi('ScoreLeaderboard');
 
 export type ScoreLeaderboardResponse = z.infer<typeof ScoreLeaderboardResponseSchema>;

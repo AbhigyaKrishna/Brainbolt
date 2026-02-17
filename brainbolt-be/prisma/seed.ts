@@ -3,7 +3,6 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 const questions = [
-  // Difficulty 1 - Very Easy
   {
     difficulty: 1,
     prompt: 'What color is the sky on a clear day?',
@@ -75,7 +74,6 @@ const questions = [
     explanation: 'A typical human hand has 5 fingers.',
   },
 
-  // Difficulty 2 - Easy
   {
     difficulty: 2,
     prompt: 'What is the capital of France?',
@@ -147,7 +145,6 @@ const questions = [
     explanation: 'Water freezes at 0°C (32°F).',
   },
 
-  // Difficulty 3 - Medium-Easy
   {
     difficulty: 3,
     prompt: 'What is the smallest prime number?',
@@ -219,7 +216,6 @@ const questions = [
     explanation: 'Canberra is the capital of Australia.',
   },
 
-  // Difficulty 4 - Medium
   {
     difficulty: 4,
     prompt: 'What is the derivative of x² with respect to x?',
@@ -291,7 +287,6 @@ const questions = [
     explanation: 'The Network layer (Layer 3) is responsible for routing.',
   },
 
-  // Difficulty 5 - Medium-Hard
   {
     difficulty: 5,
     prompt: 'What is the integral of 1/x with respect to x?',
@@ -388,7 +383,6 @@ const questions = [
     explanation: 'The three-way handshake (SYN, SYN-ACK, ACK) is used to establish a TCP connection.',
   },
 
-  // Difficulty 6 - Hard
   {
     difficulty: 6,
     prompt: 'What is the Big O notation for the worst-case time complexity of QuickSort?',
@@ -505,7 +499,6 @@ const questions = [
     explanation: 'The second law of thermodynamics states that entropy in an isolated system always increases over time.',
   },
 
-  // Difficulty 7 - Very Hard
   {
     difficulty: 7,
     prompt: 'What is the time complexity of the best known algorithm for matrix multiplication?',
@@ -622,7 +615,6 @@ const questions = [
     explanation: 'Shannon\'s source coding theorem establishes that data cannot be losslessly compressed beyond its entropy.',
   },
 
-  // Difficulty 8 - Expert
   {
     difficulty: 8,
     prompt: 'What is the relationship between topological quantum field theory and knot invariants?',
@@ -744,7 +736,6 @@ const questions = [
     explanation: 'Characteristic classes are cohomology classes associated to vector bundles that provide global topological information.',
   },
 
-  // Difficulty 9 - Master
   {
     difficulty: 9,
     prompt: 'What does the Atiyah-Singer index theorem relate?',
@@ -866,7 +857,6 @@ const questions = [
     explanation: 'O-minimality is a property of first-order structures where definable sets have simple geometric structure, generalizing real closed fields.',
   },
 
-  // Difficulty 10 - Grand Master
   {
     difficulty: 10,
     prompt: 'What is the relationship between the geometric Langlands program and quantum field theory?',
@@ -992,7 +982,6 @@ const questions = [
 async function main() {
   console.log('Seeding database...');
 
-  // Clear existing questions
   await prisma.question.deleteMany({});
 
   console.log('Creating questions...');

@@ -3,7 +3,6 @@ import { extendZodWithOpenApi } from '@asteasolutions/zod-to-openapi';
 
 extendZodWithOpenApi(z);
 
-// Question response schema
 export const QuestionResponseSchema = z
   .object({
     question_id: z.string().openapi({ example: 'clw1x2y3z4a5b6c7d8e9f0g1' }),
@@ -16,7 +15,6 @@ export const QuestionResponseSchema = z
 
 export type QuestionResponse = z.infer<typeof QuestionResponseSchema>;
 
-// Submit answer request schema
 export const SubmitAnswerRequestSchema = z.object({
   body: z.object({
     choice_index: z
@@ -37,7 +35,6 @@ export const SubmitAnswerRequestSchema = z.object({
 
 export type SubmitAnswerRequest = z.infer<typeof SubmitAnswerRequestSchema>['body'];
 
-// Answer result response schema
 export const AnswerResultResponseSchema = z
   .object({
     correct: z.boolean().openapi({ example: true }),
@@ -52,7 +49,6 @@ export const AnswerResultResponseSchema = z
 
 export type AnswerResultResponse = z.infer<typeof AnswerResultResponseSchema>;
 
-// User stats response schema
 export const UserStatsResponseSchema = z
   .object({
     total_score: z.number().int().openapi({ example: 1250 }),

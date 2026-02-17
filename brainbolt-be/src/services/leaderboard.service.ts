@@ -3,19 +3,14 @@ import { prisma } from '../lib/prisma';
 import { ScoreEntry, StreakEntry } from '../schemas/leaderboard.schema';
 
 export class LeaderboardService {
-  /**
-   * Get top scores leaderboard
-   */
   async getScoreLeaderboard(limit: number = 100): Promise<ScoreEntry[]> {
     try {
-      // Try Redis first
       const redisEntries = await redis.zrevrange('leaderboard:score', 0, limit - 1, 'WITHSCORES');
 
       if (redisEntries && redisEntries.length > 0) {
         return await this.formatScoreEntriesFromRedis(redisEntries);
       }
 
-      // Fallback to database
       return await this.getScoreLeaderboardFromDB(limit);
     } catch (error) {
       console.error('Leaderboard error, falling back to DB:', error);
@@ -23,19 +18,14 @@ export class LeaderboardService {
     }
   }
 
-  /**
-   * Get top streaks leaderboard
-   */
   async getStreakLeaderboard(limit: number = 100): Promise<StreakEntry[]> {
     try {
-      // Try Redis first
       const redisEntries = await redis.zrevrange('leaderboard:streak', 0, limit - 1, 'WITHSCORES');
 
       if (redisEntries && redisEntries.length > 0) {
         return await this.formatStreakEntriesFromRedis(redisEntries);
       }
 
-      // Fallback to database
       return await this.getStreakLeaderboardFromDB(limit);
     } catch (error) {
       console.error('Leaderboard error, falling back to DB:', error);
@@ -43,12 +33,8 @@ export class LeaderboardService {
     }
   }
 
-  /**
-   * Rebuild Redis leaderboards from database (cold start)
-   */
   async rebuildRedisLeaderboards(): Promise<void> {
     try {
-      // Rebuild score leaderboard
       const scoreEntries = await prisma.leaderboardScore.findMany({
         orderBy: { totalScore: 'desc' },
         take: 1000,
@@ -62,7 +48,6 @@ export class LeaderboardService {
         await redis.zadd('leaderboard:score', ...scoreArgs);
       }
 
-      // Rebuild streak leaderboard
       const streakEntries = await prisma.leaderboardStreak.findMany({
         orderBy: { maxStreak: 'desc' },
         take: 1000,
@@ -82,9 +67,6 @@ export class LeaderboardService {
     }
   }
 
-  /**
-   * Get user rank in score leaderboard
-   */
   async getUserScoreRank(userId: string): Promise<number | null> {
     try {
       const rank = await redis.zrevrank('leaderboard:score', userId);
@@ -95,9 +77,6 @@ export class LeaderboardService {
     }
   }
 
-  /**
-   * Get user rank in streak leaderboard
-   */
   async getUserStreakRank(userId: string): Promise<number | null> {
     try {
       const rank = await redis.zrevrank('leaderboard:streak', userId);
@@ -108,8 +87,6 @@ export class LeaderboardService {
     }
   }
 
-  // Private helper methods
-
   private async formatScoreEntriesFromRedis(redisEntries: string[]): Promise<ScoreEntry[]> {
     const entries: ScoreEntry[] = [];
 
@@ -117,7 +94,6 @@ export class LeaderboardService {
       const userId = redisEntries[i];
       const score = parseInt(redisEntries[i + 1], 10);
 
-      // Get username from DB
       const user = await prisma.user.findUnique({
         where: { id: userId },
         select: { username: true },
@@ -143,7 +119,6 @@ export class LeaderboardService {
       const userId = redisEntries[i];
       const streak = parseInt(redisEntries[i + 1], 10);
 
-      // Get username from DB
       const user = await prisma.user.findUnique({
         where: { id: userId },
         select: { username: true },

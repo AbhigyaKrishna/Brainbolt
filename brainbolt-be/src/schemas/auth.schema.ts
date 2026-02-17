@@ -3,7 +3,6 @@ import { extendZodWithOpenApi } from '@asteasolutions/zod-to-openapi';
 
 extendZodWithOpenApi(z);
 
-// Register schema
 export const RegisterRequestSchema = z.object({
   body: z.object({
     username: z
@@ -22,7 +21,6 @@ export const RegisterRequestSchema = z.object({
 
 export type RegisterRequest = z.infer<typeof RegisterRequestSchema>['body'];
 
-// Login schema
 export const LoginRequestSchema = z.object({
   body: z.object({
     email: z.string().email('Invalid email address').openapi({ example: 'john@example.com' }),
@@ -32,7 +30,6 @@ export const LoginRequestSchema = z.object({
 
 export type LoginRequest = z.infer<typeof LoginRequestSchema>['body'];
 
-// User response schema
 export const UserResponseSchema = z
   .object({
     id: z.string().openapi({ example: 'clw1x2y3z4a5b6c7d8e9f0g1' }),
@@ -44,7 +41,6 @@ export const UserResponseSchema = z
 
 export type UserResponse = z.infer<typeof UserResponseSchema>;
 
-// Auth response schema
 export const AuthResponseSchema = z
   .object({
     access_token: z.string().openapi({ example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...' }),

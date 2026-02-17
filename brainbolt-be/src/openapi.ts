@@ -21,7 +21,6 @@ import {
 
 const registry = new OpenAPIRegistry();
 
-// Auth endpoints
 registry.registerPath({
   method: 'post',
   path: '/v1/auth/register',
@@ -98,7 +97,6 @@ registry.registerPath({
   },
 });
 
-// Quiz endpoints
 registry.registerPath({
   method: 'get',
   path: '/v1/quiz/questions/next',
@@ -178,7 +176,6 @@ registry.registerPath({
   },
 });
 
-// Leaderboard endpoints
 registry.registerPath({
   method: 'get',
   path: '/v1/leaderboard/score',

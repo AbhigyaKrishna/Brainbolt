@@ -8,11 +8,10 @@ export function idempotency(req: Request, res: Response, next: NextFunction) {
     return next();
   }
 
-  // Check if we've seen this key before
   cacheService.checkIdempotency(idempotencyKey).then((cached) => {
     if (cached) {
-      // Return cached response
-      return res.status(200).json(cached);
+      res.status(200).json(cached);
+      return;
     }
     next();
   }).catch((error) => {

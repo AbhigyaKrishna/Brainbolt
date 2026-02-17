@@ -25,6 +25,5 @@ export function errorHandler(err: Error, _req: Request, res: Response, _next: Ne
     return res.status(401).json({ detail: 'Token expired' });
   }
 
-  // Default error
   return res.status(500).json({ detail: 'Internal server error' });
 }
