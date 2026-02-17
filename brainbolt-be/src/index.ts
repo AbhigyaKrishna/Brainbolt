@@ -5,6 +5,7 @@ import authRoutes from './routes/auth.routes';
 import quizRoutes from './routes/quiz.routes';
 import leaderboardRoutes from './routes/leaderboard.routes';
 import { leaderboardService } from './services/leaderboard.service';
+import { errorHandler } from './middleware/error-handler';
 
 async function start() {
   try {
@@ -15,6 +16,9 @@ async function start() {
     app.use('/v1/leaderboard', leaderboardRoutes);
 
     setupOpenAPI(app);
+
+    // Error handler must be registered AFTER routes
+    app.use(errorHandler);
 
     console.log('Rebuilding Redis leaderboards...');
     await leaderboardService.rebuildRedisLeaderboards();

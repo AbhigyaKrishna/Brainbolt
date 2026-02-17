@@ -30,7 +30,7 @@ export const SubmitAnswerRequestSchema = z.object({
   }),
   headers: z.object({
     'idempotency-key': z.string().uuid().optional(),
-  }),
+  }).passthrough(),
 });
 
 export type SubmitAnswerRequest = z.infer<typeof SubmitAnswerRequestSchema>['body'];

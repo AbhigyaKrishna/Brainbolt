@@ -85,41 +85,42 @@ export const authApi = {
 
 // Quiz API
 export const quizApi = {
-  getNextQuestion: (token: string, sessionId?: string) => {
-    const params = sessionId ? `?session_id=${sessionId}` : "";
+  getNextQuestion: (token: string) => {
     return fetchApi<{
       question_id: string;
-      question_text: string;
+      prompt: string;
       choices: string[];
       difficulty: number;
       state_version: number;
-      session_id: string;
-    }>(`/v1/quiz/next${params}`, { token });
+    }>("/v1/quiz/next", { token });
   },
 
   submitAnswer: (
     token: string,
     data: {
-      session_id: string;
       state_version: number;
       choice_index: number;
       idempotency_key: string;
     }
   ) =>
     fetchApi<{
-      is_correct: boolean;
-      correct_choice_index: number;
+      correct: boolean;
+      correct_index: number;
       score_delta: number;
-      new_streak: number;
       new_total_score: number;
+      new_streak: number;
       new_difficulty: number;
-      explanation?: string;
-      leaderboard_rank_score?: number;
-      leaderboard_rank_streak?: number;
-    }>("/v1/quiz/answer", {
+      explanation: string | null;
+    }>("/v1/quiz/answers", {
       method: "POST",
       token,
-      body: JSON.stringify(data),
+      headers: {
+        "idempotency-key": data.idempotency_key,
+      },
+      body: JSON.stringify({
+        choice_index: data.choice_index,
+        state_version: data.state_version,
+      }),
     }),
 
   getMetrics: (token: string) =>
@@ -131,8 +132,7 @@ export const quizApi = {
       correct_answers: number;
       current_difficulty: number;
       accuracy: number;
-      difficulty_distribution: Record<number, number>;
-    }>("/v1/quiz/metrics", { token }),
+    }>("/v1/quiz/stats", { token }),
 };
 
 // Leaderboard API

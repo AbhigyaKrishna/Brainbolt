@@ -82,7 +82,7 @@ export class QuizService {
     });
 
     if (!session || !session.currentQuestion) {
-      throw new AppError(400, 'No active question');
+      throw new AppError(400, 'No active question. Please fetch a new question first.');
     }
 
     const question = session.currentQuestion;
@@ -155,6 +155,12 @@ export class QuizService {
       await tx.leaderboardStreak.update({
         where: { userId },
         data: { maxStreak: newMaxStreak },
+      });
+
+      // Clear the current question after answering to prevent duplicate submissions
+      await tx.quizSession.update({
+        where: { id: `${userId}_current` },
+        data: { currentQuestionId: null },
       });
 
       return {

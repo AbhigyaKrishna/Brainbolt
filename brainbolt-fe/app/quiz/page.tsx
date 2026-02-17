@@ -101,7 +101,7 @@ export default function QuizPage() {
         ) : currentQuestion ? (
           <div className="flex flex-col gap-6">
             <QuestionCard
-              questionText={currentQuestion.question_text}
+              questionText={currentQuestion.prompt}
               difficulty={currentQuestion.difficulty}
             />
 
@@ -109,7 +109,7 @@ export default function QuizPage() {
               choices={currentQuestion.choices}
               selectedAnswer={selectedAnswer}
               correctAnswer={
-                answerResult ? answerResult.correct_choice_index : null
+                answerResult ? answerResult.correct_index : null
               }
               isDisabled={!!answerResult || isSubmitting}
               onSelectChoice={handleSelectChoice}
@@ -135,7 +135,7 @@ export default function QuizPage() {
 
             {answerResult && (
               <AnswerFeedback
-                isCorrect={answerResult.is_correct}
+                isCorrect={answerResult.correct}
                 scoreDelta={answerResult.score_delta}
                 explanation={answerResult.explanation}
                 onNext={handleNextQuestion}

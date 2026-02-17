@@ -6,23 +6,20 @@ export interface User {
 
 export interface Question {
   question_id: string;
-  question_text: string;
+  prompt: string;
   choices: string[];
   difficulty: number;
   state_version: number;
-  session_id: string;
 }
 
 export interface AnswerResult {
-  is_correct: boolean;
-  correct_choice_index: number;
+  correct: boolean;
+  correct_index: number;
   score_delta: number;
   new_streak: number;
   new_total_score: number;
   new_difficulty: number;
-  explanation?: string;
-  leaderboard_rank_score?: number;
-  leaderboard_rank_streak?: number;
+  explanation?: string | null;
 }
 
 export interface QuizMetrics {

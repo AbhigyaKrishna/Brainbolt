@@ -23,7 +23,7 @@ export type RegisterRequest = z.infer<typeof RegisterRequestSchema>['body'];
 
 export const LoginRequestSchema = z.object({
   body: z.object({
-    email: z.string().email('Invalid email address').openapi({ example: 'john@example.com' }),
+    username: z.string().min(1, 'Username or email is required').openapi({ example: 'johndoe' }),
     password: z.string().min(1, 'Password is required').openapi({ example: 'password123' }),
   }),
 });
