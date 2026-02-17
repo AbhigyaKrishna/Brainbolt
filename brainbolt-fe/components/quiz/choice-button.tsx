@@ -30,23 +30,25 @@ export const ChoiceButton = React.memo(function ChoiceButton({
       onClick={onClick}
       disabled={isDisabled}
       className={cn(
-        "w-full p-4 rounded-lg border-2 text-left transition-all duration-200",
-        "hover:border-primary hover:bg-accent/50",
+        "w-full p-4 border-2 border-foreground text-left transition-all duration-200 font-medium",
+        "shadow-[4px_4px_0_0_hsl(var(--foreground))]",
+        "hover:shadow-none hover:translate-x-0.5 hover:translate-y-0.5",
+        "active:shadow-none active:translate-x-1 active:translate-y-1",
         "focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
         "disabled:cursor-not-allowed",
-        isSelected && !isCorrect && !isIncorrect && "border-primary bg-accent",
-        isCorrect && "border-success bg-success/10 text-success-foreground",
-        isIncorrect && "border-destructive bg-destructive/10 text-destructive-foreground"
+        isSelected && !isCorrect && !isIncorrect && "border-2 border-foreground bg-primary text-primary-foreground",
+        isCorrect && "border-2 border-success bg-success text-success-foreground",
+        isIncorrect && "border-2 border-destructive bg-destructive text-destructive-foreground"
       )}
     >
       <div className="flex items-center gap-3">
         <div
           className={cn(
-            "flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 font-semibold",
-            isSelected && !isCorrect && !isIncorrect && "border-primary bg-primary text-primary-foreground",
+            "flex h-8 w-8 shrink-0 items-center justify-center border-2 font-bold",
+            isSelected && !isCorrect && !isIncorrect && "border-foreground bg-primary text-primary-foreground",
             isCorrect && "border-success bg-success text-success-foreground",
             isIncorrect && "border-destructive bg-destructive text-destructive-foreground",
-            !isSelected && !isCorrect && !isIncorrect && "border-border"
+            !isSelected && !isCorrect && !isIncorrect && "border-foreground"
           )}
         >
           {isCorrect ? (

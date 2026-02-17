@@ -16,7 +16,7 @@ export default function LeaderboardLoading() {
         </CardHeader>
         <CardContent className="space-y-2">
           {[1, 2, 3, 4, 5].map((i) => (
-            <Skeleton key={i} className="h-20 w-full rounded-lg" />
+            <Skeleton key={i} className="h-20 w-full" />
           ))}
         </CardContent>
       </Card>

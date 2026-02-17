@@ -94,9 +94,11 @@ export default function LoginPage() {
               )}
             </div>
 
+            <div className="h-4" />
+
             {error && (
-              <div className="rounded-md bg-destructive/10 p-3">
-                <p className="text-sm text-destructive">{error}</p>
+              <div className="border-2 border-destructive bg-destructive/10 p-3">
+                <p className="text-sm text-destructive font-medium">{error}</p>
               </div>
             )}
           </CardContent>

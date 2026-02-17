@@ -25,7 +25,7 @@ export const AnswerFeedback = React.memo(function AnswerFeedback({
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       className={cn(
-        "rounded-lg border-2 p-6",
+        "border-2 p-6 shadow-[4px_4px_0_0_hsl(var(--foreground))]",
         isCorrect
           ? "border-success bg-success/10"
           : "border-destructive bg-destructive/10"
@@ -55,8 +55,8 @@ export const AnswerFeedback = React.memo(function AnswerFeedback({
         </div>
 
         {explanation && (
-          <div className="text-sm text-muted-foreground bg-background/50 p-3 rounded">
-            <p className="font-medium mb-1">Explanation:</p>
+          <div className="text-sm text-muted-foreground border-2 border-foreground bg-background p-3">
+            <p className="font-bold mb-1">Explanation:</p>
             <p>{explanation}</p>
           </div>
         )}

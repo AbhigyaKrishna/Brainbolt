@@ -5,7 +5,7 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="w-full border-t bg-background min-w-0">
+    <footer className="w-full border-t-2 border-t-foreground bg-background min-w-0">
       <div className="container py-8 px-4 sm:px-6 max-w-[1920px]">
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-12">
           {/* Brand */}
@@ -89,13 +89,13 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-8 border-t pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+        <div className="mt-8 border-t-2 border-t-foreground pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
           <p className="text-sm text-muted-foreground">
             © {currentYear} BrainBolt. All rights reserved.
           </p>
           <div className="flex items-center gap-4">
             <a
-              href="https://github.com"
+              href="https://github.com/AbhigyaKrishna/Brainbolt"
               target="_blank"
               rel="noopener noreferrer"
               className="text-muted-foreground hover:text-foreground transition-colors"

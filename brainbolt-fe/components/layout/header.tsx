@@ -32,7 +32,7 @@ export function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 min-w-0">
+    <header className="sticky top-0 z-40 w-full border-b-2 border-b-foreground bg-background min-w-0">
       <div className="container flex h-16 items-center justify-between px-4 sm:px-6 max-w-[1920px]">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 font-semibold">
@@ -47,7 +47,7 @@ export function Header() {
               key={link.href}
               href={link.href}
               className={cn(
-                "text-sm font-medium transition-colors hover:text-primary",
+                "text-sm font-bold transition-colors hover:text-primary",
                 isActive(link.href)
                   ? "text-foreground"
                   : "text-muted-foreground"
@@ -65,7 +65,7 @@ export function Header() {
           {user ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="relative h-10 w-10 rounded-full">
+                <Button variant="noShadow" className="relative h-10 w-10">
                   <Avatar>
                     <AvatarFallback>
                       {user.username.slice(0, 2).toUpperCase()}
@@ -97,7 +97,7 @@ export function Header() {
             </DropdownMenu>
           ) : (
             <div className="hidden md:flex items-center gap-2">
-              <Button variant="ghost" asChild>
+              <Button asChild>
                 <Link href="/auth/login">Login</Link>
               </Button>
               <Button asChild>
@@ -108,7 +108,7 @@ export function Header() {
 
           {/* Mobile Menu Button */}
           <Button
-            variant="ghost"
+            variant="noShadow"
             size="icon"
             className="md:hidden"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -121,7 +121,7 @@ export function Header() {
 
       {/* Mobile Navigation */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t w-full min-w-0">
+        <div className="md:hidden border-t-2 border-t-foreground w-full min-w-0">
           <nav className="container flex flex-col gap-4 py-4 px-4 max-w-[1920px]">
             {user ? (
               <>
@@ -131,7 +131,7 @@ export function Header() {
                     href={link.href}
                     onClick={() => setMobileMenuOpen(false)}
                     className={cn(
-                      "text-sm font-medium",
+                      "text-sm font-bold",
                       isActive(link.href)
                         ? "text-foreground"
                         : "text-muted-foreground"
@@ -141,7 +141,7 @@ export function Header() {
                   </Link>
                 ))}
                 <Button
-                  variant="outline"
+                  variant="neutral"
                   onClick={() => {
                     logout();
                     setMobileMenuOpen(false);
@@ -152,7 +152,7 @@ export function Header() {
               </>
             ) : (
               <>
-                <Button variant="ghost" asChild>
+                <Button asChild>
                   <Link
                     href="/auth/login"
                     onClick={() => setMobileMenuOpen(false)}

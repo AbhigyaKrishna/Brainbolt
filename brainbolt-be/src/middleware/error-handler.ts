@@ -10,7 +10,7 @@ export class AppError extends Error {
   }
 }
 
-export function errorHandler(err: Error, req: Request, res: Response, next: NextFunction) {
+export function errorHandler(err: Error, _req: Request, res: Response, _next: NextFunction) {
   console.error('Error:', err);
 
   if (err instanceof AppError) {
@@ -26,5 +26,5 @@ export function errorHandler(err: Error, req: Request, res: Response, next: Next
   }
 
   // Default error
-  res.status(500).json({ detail: 'Internal server error' });
+  return res.status(500).json({ detail: 'Internal server error' });
 }

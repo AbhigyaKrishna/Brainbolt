@@ -4,81 +4,68 @@
   /* Container configuration */
   --container-center: true;
   --container-padding: 1rem;
+  
+  /* Neobrutalism Border Radius */
+  --radius-base: 0px;
+  
+  /* Neobrutalism Box Shadow */
+  --shadow-shadow: 4px 4px 0 0 hsl(var(--border));
+  
+  /* Neobrutalism Transform Values */
+  --translate-x-boxShadowX: 4px;
+  --translate-y-boxShadowY: 4px;
+  --translate-x-reverseBoxShadowX: -4px;
+  --translate-y-reverseBoxShadowY: -4px;
 }
 
-/* Global viewport and overflow control */
-html {
-  overflow-x: hidden;
-  width: 100%;
-  max-width: 100vw;
-  box-sizing: border-box;
-}
-
-body {
-  background: hsl(var(--background));
-  color: hsl(var(--foreground));
-  font-family: var(--font-sans);
-  overflow-x: hidden;
-  width: 100%;
-  max-width: 100vw;
-  position: relative;
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-/* Prevent overflow from any element */
-#__next,
-[data-nextjs-scroll-focus-boundary] {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-/* Design System Tokens */
+/* Design System Tokens - Neo-Brutalism
+   Light palette uses ONLY: #E63946 #F1FAEE #F1C40F #D8E2DC #A8DADC #457B9D #1D3557 #F9C74F #F3722C #2A9D8F */
 :root {
-  /* Colors - Light Mode */
-  --background: 0 0% 100%;
-  --foreground: 240 10% 3.9%;
-  --card: 0 0% 100%;
-  --card-foreground: 240 10% 3.9%;
-  --popover: 0 0% 100%;
-  --popover-foreground: 240 10% 3.9%;
+  /* Background & Foreground */
+  --background: 105 55% 96%;      /* #F1FAEE */
+  --foreground: 215 50% 23%;      /* #1D3557 */
+  --card: 144 15% 87%;             /* #D8E2DC */
+  --card-foreground: 215 50% 23%;  /* #1D3557 */
+  --popover: 144 15% 87%;          /* #D8E2DC */
+  --popover-foreground: 215 50% 23%; /* #1D3557 */
   
-  /* Primary - Blue */
-  --primary: 221.2 83.2% 53.3%;
-  --primary-foreground: 210 40% 98%;
+  /* Primary - Steel Blue #457B9D */
+  --primary: 203 39% 44%;
+  --primary-foreground: 105 55% 96%;  /* #F1FAEE */
   
-  /* Secondary - Slate */
-  --secondary: 240 4.8% 95.9%;
-  --secondary-foreground: 240 5.9% 10%;
+  /* Secondary - Light Teal #A8DADC */
+  --secondary: 182 43% 76%;
+  --secondary-foreground: 215 50% 23%; /* #1D3557 */
   
-  /* Accent - Violet */
-  --accent: 266 85% 58%;
-  --accent-foreground: 210 40% 98%;
+  /* Accent - Teal #2A9D8F */
+  --accent: 173 58% 39%;
+  --accent-foreground: 105 55% 96%;   /* #F1FAEE */
   
-  /* Destructive */
-  --destructive: 0 84.2% 60.2%;
-  --destructive-foreground: 210 40% 98%;
+  /* Destructive - Red #E63946 */
+  --destructive: 355 78% 56%;
+  --destructive-foreground: 105 55% 96%; /* #F1FAEE */
   
-  /* Success */
-  --success: 142 76% 36%;
-  --success-foreground: 144 61% 94%;
+  /* Success - Teal #2A9D8F */
+  --success: 173 58% 39%;
+  --success-foreground: 105 55% 96%;  /* #F1FAEE */
   
-  /* Warning */
-  --warning: 38 92% 50%;
-  --warning-foreground: 48 96% 89%;
+  /* Warning - Orange #F3722C */
+  --warning: 21 89% 56%;
+  --warning-foreground: 215 50% 23%;  /* #1D3557 */
   
-  /* Muted */
-  --muted: 240 4.8% 95.9%;
-  --muted-foreground: 240 3.8% 46.1%;
+  /* Muted - Soft Gray-Green #D8E2DC */
+  --muted: 144 15% 87%;              /* #D8E2DC */
+  --muted-foreground: 203 39% 44%;   /* #457B9D */
   
-  /* Border & Input */
-  --border: 240 5.9% 90%;
-  --input: 240 5.9% 90%;
-  --ring: 221.2 83.2% 53.3%;
+  /* Border & Input - Navy #1D3557 */
+  --border: 215 50% 23%;
+  --input: 215 50% 23%;
+  --ring: 203 39% 44%;               /* #457B9D */
+  
+  /* Neobrutalism-specific aliases */
+  --main: var(--primary);
+  --main-foreground: var(--primary-foreground);
+  --secondary-background: var(--background);
   
   /* Spacing Scale (rem) */
   --spacing-xs: 0.25rem;
@@ -89,17 +76,17 @@ body {
   --spacing-2xl: 3rem;
   --spacing-3xl: 4rem;
   
-  /* Border Radius */
-  --radius-sm: 0.25rem;
-  --radius-md: 0.5rem;
-  --radius-lg: 0.75rem;
-  --radius-xl: 1rem;
-  --radius-2xl: 1.5rem;
-  --radius: 0.5rem;
+  /* Border Radius - All ZERO for Neo-Brutalism */
+  --radius-sm: 0;
+  --radius-md: 0;
+  --radius-lg: 0;
+  --radius-xl: 0;
+  --radius-2xl: 0;
+  --radius: 0;
   
   /* Typography */
-  --font-sans: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-mono: var(--font-geist-mono), "Courier New", monospace;
+  --font-sans: var(--font-space-grotesk), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: var(--font-space-mono), "Courier New", monospace;
   
   /* Font Sizes */
   --text-xs: 0.75rem;
@@ -111,58 +98,75 @@ body {
   --text-3xl: 1.875rem;
   --text-4xl: 2.25rem;
   
-  /* Shadows */
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
-  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+  /* Border Width */
+  --border-width: 2px;
   
-  /* Quiz Difficulty Colors (1-10 scale) */
-  --difficulty-1: 142 76% 36%;
-  --difficulty-2: 142 71% 45%;
-  --difficulty-3: 173 80% 40%;
-  --difficulty-4: 198 93% 60%;
-  --difficulty-5: 221 83% 53%;
-  --difficulty-6: 262 83% 58%;
-  --difficulty-7: 271 91% 65%;
-  --difficulty-8: 346 87% 43%;
-  --difficulty-9: 0 72% 51%;
-  --difficulty-10: 0 84% 60%;
+  /* Hard Offset Shadows - Neo-Brutalism */
+  --shadow-sm: 2px 2px 0 0 hsl(var(--foreground));
+  --shadow-md: 4px 4px 0 0 hsl(var(--foreground));
+  --shadow-lg: 6px 6px 0 0 hsl(var(--foreground));
+  --shadow-xl: 8px 8px 0 0 hsl(var(--foreground));
+  
+  /* Quiz Difficulty Colors (1-10 scale) - Cool to Warm progression */
+  --difficulty-1: 182 43% 76%;    /* Easy: Light Teal #A8DADC */
+  --difficulty-2: 173 58% 45%;    /* Easy: Teal variant */
+  --difficulty-3: 173 58% 39%;    /* Easy-Med: Teal #2A9D8F */
+  --difficulty-4: 203 39% 44%;    /* Medium: Steel Blue #457B9D */
+  --difficulty-5: 215 50% 30%;    /* Medium: Navy variant */
+  --difficulty-6: 49 92% 50%;     /* Med-Hard: Bright Yellow #F1C40F */
+  --difficulty-7: 42 93% 64%;     /* Med-Hard: Golden Yellow #F9C74F */
+  --difficulty-8: 21 89% 56%;     /* Hard: Orange #F3722C */
+  --difficulty-9: 8 84% 56%;      /* Hard: Red-Orange */
+  --difficulty-10: 355 78% 56%;   /* Hardest: Red #E63946 */
 }
 
-/* Dark Mode Tokens */
+/* Dark Mode Tokens - Neo-Brutalism */
 .dark {
-  --background: 240 10% 3.9%;
-  --foreground: 0 0% 98%;
-  --card: 240 10% 3.9%;
-  --card-foreground: 0 0% 98%;
-  --popover: 240 10% 3.9%;
-  --popover-foreground: 0 0% 98%;
+  /* Background & Foreground - Inverted */
+  --background: 215 50% 23%;      /* Navy #1D3557 */
+  --foreground: 105 55% 96%;      /* Mint #F1FAEE */
+  --card: 215 45% 30%;             /* Lighter Navy for cards */
+  --card-foreground: 105 55% 96%;  /* Mint #F1FAEE */
+  --popover: 215 45% 30%;
+  --popover-foreground: 105 55% 96%;
   
-  --primary: 217.2 91.2% 59.8%;
-  --primary-foreground: 222.2 47.4% 11.2%;
+  /* Primary - Brightened Steel Blue for better visibility */
+  --primary: 203 45% 55%;          /* Brighter Steel Blue */
+  --primary-foreground: 215 50% 15%; /* Darker navy for contrast */
   
-  --secondary: 240 3.7% 15.9%;
-  --secondary-foreground: 0 0% 98%;
+  /* Secondary - Light Teal (maintains identity) */
+  --secondary: 182 43% 76%;        /* Light Teal #A8DADC */
+  --secondary-foreground: 215 50% 20%; /* Dark for contrast */
   
-  --accent: 266 85% 68%;
-  --accent-foreground: 0 0% 98%;
+  /* Accent - Brightened Teal */
+  --accent: 173 58% 50%;           /* Brighter Teal */
+  --accent-foreground: 215 50% 15%; /* Dark for contrast */
   
-  --destructive: 0 62.8% 30.6%;
-  --destructive-foreground: 0 0% 98%;
+  /* Destructive - Brightened Red */
+  --destructive: 355 78% 65%;      /* Brighter Red for visibility */
+  --destructive-foreground: 105 55% 96%; /* Mint */
   
-  --success: 142 71% 45%;
-  --success-foreground: 144 61% 20%;
+  /* Success - Brightened Teal */
+  --success: 173 58% 50%;
+  --success-foreground: 215 50% 15%;
   
-  --warning: 38 92% 50%;
-  --warning-foreground: 48 96% 20%;
+  /* Warning - Brightened Orange */
+  --warning: 21 89% 65%;           /* Brighter Orange */
+  --warning-foreground: 215 50% 15%;
   
-  --muted: 240 3.7% 15.9%;
-  --muted-foreground: 240 5% 64.9%;
+  /* Muted colors */
+  --muted: 215 40% 35%;            /* Muted navy variant */
+  --muted-foreground: 182 30% 70%; /* Muted teal-gray */
   
-  --border: 240 3.7% 15.9%;
-  --input: 240 3.7% 15.9%;
-  --ring: 217.2 91.2% 59.8%;
+  /* Border & Input - Light in dark mode */
+  --border: 105 55% 96%;           /* Mint for borders */
+  --input: 105 55% 96%;
+  --ring: 182 43% 76%;             /* Light Teal for focus rings */
+  
+  /* Neobrutalism-specific aliases */
+  --main: var(--primary);
+  --main-foreground: var(--primary-foreground);
+  --secondary-background: var(--background);
 }
 
 @theme inline {
@@ -191,25 +195,45 @@ body {
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
   
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Neobrutalism-specific colors */
+  --color-main: hsl(var(--main));
+  --color-main-foreground: hsl(var(--main-foreground));
+  --color-secondary-background: hsl(var(--secondary-background));
+  
+  --font-sans: var(--font-space-grotesk);
+  --font-mono: var(--font-space-mono);
+  --font-base: var(--font-space-grotesk);
+  --font-heading: var(--font-space-grotesk);
 }
 
-* {
-  border-color: hsl(var(--border));
-}
-
-html {
-  overflow-x: hidden;
-  width: 100%;
-}
-
-body {
-  background: hsl(var(--background));
-  color: hsl(var(--foreground));
-  font-family: var(--font-sans);
-  overflow-x: hidden;
-  width: 100%;
-  position: relative;
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    border-color: hsl(var(--border));
+  }
+  
+  html {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+  }
+  
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+    position: relative;
+  }
+  
+  /* Prevent overflow from any element */
+  #__next,
+  [data-nextjs-scroll-focus-boundary] {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
 }
 

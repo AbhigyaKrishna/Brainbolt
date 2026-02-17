@@ -40,10 +40,10 @@ export const LeaderboardRow = React.memo(function LeaderboardRow({
   return (
     <div
       className={cn(
-        "flex items-center gap-4 p-4 rounded-lg transition-colors",
+        "flex items-center gap-4 p-4 border-2 border-foreground transition-colors",
         isCurrentUser
-          ? "bg-primary/10 border-2 border-primary"
-          : "bg-card hover:bg-accent/50"
+          ? "bg-primary/10 border-2 border-primary shadow-[4px_4px_0_0_hsl(var(--foreground))]"
+          : "bg-card hover:bg-accent/50 shadow-[4px_4px_0_0_hsl(var(--foreground))]"
       )}
     >
       <div className="flex items-center justify-center w-10">

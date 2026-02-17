@@ -18,7 +18,7 @@ export default function NotFound() {
               Go Home
             </Link>
           </Button>
-          <Button variant="outline" asChild>
+          <Button variant="neutral" asChild>
             <Link href="/quiz">
               <Search className="mr-2 h-4 w-4" />
               Start Quiz

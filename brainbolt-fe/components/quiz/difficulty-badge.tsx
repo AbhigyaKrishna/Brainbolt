@@ -18,7 +18,7 @@ export const DifficultyBadge = React.memo(function DifficultyBadge({
   return (
     <div
       className={cn(
-        "inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold text-white",
+        "inline-flex items-center border-2 border-foreground px-3 py-1 text-xs font-bold uppercase tracking-wider",
         className
       )}
       style={{ backgroundColor: color }}

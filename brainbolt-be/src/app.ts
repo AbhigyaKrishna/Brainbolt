@@ -26,7 +26,7 @@ export function createApp(): Application {
   app.use(express.urlencoded({ extended: true }));
 
   // Health check
-  app.get('/health', (req, res) => {
+  app.get('/health', (_req, res) => {
     res.json({ status: 'ok' });
   });
 

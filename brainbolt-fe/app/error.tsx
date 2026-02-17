@@ -30,8 +30,8 @@ export default function Error({
         </CardHeader>
         <CardContent className="space-y-4">
           {error.message && (
-            <div className="rounded-md bg-destructive/10 p-3">
-              <p className="text-sm text-destructive">{error.message}</p>
+            <div className="border-2 border-destructive bg-destructive/10 p-3">
+              <p className="text-sm text-destructive font-medium">{error.message}</p>
             </div>
           )}
           <Button onClick={reset} className="w-full">
