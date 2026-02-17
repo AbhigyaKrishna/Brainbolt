@@ -65,3 +65,4 @@ htmlcov/
 *.tsbuildinfo
 
 .github/prompts
+brainbolt-be/prisma/generated
