@@ -92,14 +92,14 @@ export default function QuizPage() {
   }
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] w-full min-w-0">
+    <div className="min-h-[calc(100vh-4rem)] w-full min-w-0 flex flex-col">
       <QuizHeader score={score} streak={streak} difficulty={difficulty} />
 
-      <div className="container max-w-3xl px-4 py-8 min-w-0">
+      <div className="container max-w-3xl px-4 py-8 min-w-0 mx-auto flex-1 flex items-center justify-center">
         {isLoading && !currentQuestion ? (
           <QuizSkeleton />
         ) : currentQuestion ? (
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-6 w-full">
             <QuestionCard
               questionText={currentQuestion.question_text}
               difficulty={currentQuestion.difficulty}
